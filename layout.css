@@ -149,7 +149,7 @@
 
             &:nth-child(1) {
                 .image {
-                    background-image: url(file:///Users/seorim/Desktop/kimyeeun/section1.jpg);
+                    background-image: url(section1.jpg);
                     background-size: cover;
                     background-position: center;
                 }
@@ -157,14 +157,14 @@
 
             &:nth-child(2) {
                 .image {
-                    background-image: url(file:///Users/seorim/Desktop/kimyeeun/section2.jpeg);
+                    background-image: url(section2.jpeg);
                     background-size: cover;
                 }
             }
 
             &:nth-child(3) {
                 .image {
-                    background-image: url(file:///Users/seorim/Desktop/kimyeeun/section3.jpeg);
+                    background-image: url(section3.jpeg);
                     background-size: cover;
                     background-position: center;
                 }
