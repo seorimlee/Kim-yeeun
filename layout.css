@@ -1,0 +1,317 @@
+@import "compass/css3";
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
+
+    html,
+    body {
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+    }
+
+    header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        z-index: 9999;
+    }
+
+    header>ul {
+        width: 50%;
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+    }
+
+    header>ul:nth-child(1) {
+        justify-content: flex-start;
+        padding-left: 2%;
+    }
+
+    .container.video {
+        background: #000;
+        width: 100%;
+        height: 70vh;
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+    }
+
+    .container.video iframe {
+        position: absolute;
+        top: 10%;
+        left: 0;
+        width: 100%;
+        height: 80%;
+    }
+
+    .section-content {
+        background: #fff;
+        transition: opacity 0.5s ease;
+        height: 110vh;
+    }
+
+    .flip-container {
+        perspective: 1000px;
+    }
+
+    .flipper {
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    /* 앞면 */
+    .front,
+    .back {
+        backface-visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* 앞면 기본 설정 */
+    .front {
+        z-index: 2;
+        transform: rotateY(0deg);
+    }
+
+    /* 뒷면 기본 설정 */
+    .back {
+        transform: rotateY(180deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        height: 110vh;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff4d4d;
+        color: #000;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 50%;
+    }
+
+    /* 플립될 때 설정 */
+    .flip-container.flipped .flipper {
+        transform: rotateY(180deg);
+    }
+
+    .table-container {
+        max-height: 110vh;
+        /* 원하는 최대 높이 설정 */
+        overflow-y: scroll;
+        /* Y축 스크롤 활성화 */
+        width: 100%;
+        position: absolute;
+        top: 10%;
+    }
+
+    .table-container table {
+        width: 100%;
+        padding: 0px 5%;
+    }
+
+    .table-container table th,
+    td {
+        padding: 20px 0;
+        text-align: left;
+    }
+
+    .container {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        height: 100%;
+        justify-content: space-around;
+        position: relative;
+        width: 100%;
+
+        section {
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+
+            &:nth-child(1) {
+                .image {
+                    background-image: url(file:///Users/seorim/Desktop/kimyeeun/section1.jpg);
+                    background-size: cover;
+                    background-position: center;
+                }
+            }
+
+            &:nth-child(2) {
+                .image {
+                    background-image: url(file:///Users/seorim/Desktop/kimyeeun/section2.jpeg);
+                    background-size: cover;
+                }
+            }
+
+            &:nth-child(3) {
+                .image {
+                    background-image: url(file:///Users/seorim/Desktop/kimyeeun/section3.jpeg);
+                    background-size: cover;
+                    background-position: center;
+                }
+            }
+
+            &:nth-child(4) {
+                .image {
+                    background-image: url(https://images.unsplash.com/photo-1461080639469-66d73688fb21?iq=100&fm=jpg&w=1000);
+                }
+            }
+
+            &:nth-child(5) {
+                .image {
+                    background-image: url(https://images.unsplash.com/photo-1460804198264-011ca89eaa43?iq=100&fm=jpg&w=1000);
+                }
+            }
+
+            &:nth-child(6) {
+                .image {
+                    background-image: url(https://images.unsplash.com/photo-1463123081488-789f998ac9c4?iq=100&fm=jpg&w=1000);
+                }
+            }
+
+            .image {
+                background-attachment: fixed;
+                background-size: cover;
+                //background-repeat: no-repeat;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 500;
+            }
+
+            .stuff {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                height: 76vh;
+                width: 100%;
+                max-width: 70%;
+                justify-content: center;
+                text-align: center;
+                z-index: 1000;
+                color: #fff;
+                margin: 0 auto;
+                font-size: 28px;
+                position: relative;
+
+                h2 {
+                    margin: 0px;
+                }
+
+            }
+
+            .stuff button {
+                background: none;
+                border: 0;
+                color: #fff;
+                font-size: 27px;
+            }
+        }
+    }
+
+    .at-twitter {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        color: #f1c40f;
+        z-index: 5000;
+
+        &:visited {
+            color: #f1c40f;
+        }
+    }
+
+    a {
+        color: inherit;
+
+        &:hover,
+        &:focus {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        text-decoration: none;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+    .container-main {
+        background-image: url(file:///Users/seorim/Desktop/kimyeeun/main1.jpeg);
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 60vh;
+        display: flex;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .container-main p {
+        font-size: 10em;
+        padding: 0.5rem;
+        font-weight: bold;
+        letter-spacing: -0.3rem;
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+
+    .container-main p span.typed-text {
+        font-weight: normal;
+        color: #fff;
+    }
+
+    .container-main p span.cursor {
+        display: inline-block;
+        background-color: #fff;
+        margin-left: 0.1rem;
+        width: 3px;
+        height: 1em;
+        animation: blink 1s infinite;
+    }
+
+    .container-main p span.cursor.typing {
+        animation: none;
+    }
+
+    @keyframes blink {
+        0% {
+            background-color: #fff;
+        }
+
+        49% {
+            background-color: #fff;
+        }
+
+        50% {
+            background-color: transparent;
+        }
+
+        99% {
+            background-color: transparent;
+        }
+
+        100% {
+            background-color: #fff;
+        }
+    }
