@@ -327,6 +327,7 @@ a {
     .table-container {top: 30px;}
     .table-container table th, td {padding: 10px 0;}
     .container section .image {
+        background-size: cover !important;
         background-position: center !important; /* 중앙으로 위치 */
         background-repeat: no-repeat; /* 이미지 반복 방지 */
     }
