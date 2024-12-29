@@ -136,13 +136,12 @@ header {
 
 
 @media (max-width: 768px) {
-    /* 모바일 화면에서 배경 이미지 크기 조정 */
-    .container section {
+    section {
         height: 100vh;  /* 모바일에서는 화면을 꽉 채운 높이 */
-        background-size: 120% 120%; 
+        background-size: cover;  /* 모바일에서 배경 이미지가 화면을 꽉 채우도록 설정 */
     }
 
-    .container section .image {
-        background-attachment: scroll; /* 모바일에서는 고정되지 않도록 설정 */
+    section .image {
+        background-attachment: scroll;  /* 모바일에서는 고정되지 않도록 설정 */
     }
 }
