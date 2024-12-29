@@ -8,8 +8,9 @@
   height: 60vh;
   width: 100%;
   color: white;
-  background-size: cover;
-  background-position: center;
+  background-size: cover; /* 배경 이미지를 컨테이너에 맞게 조정 */
+  background-position: center; /* 배경 이미지 위치를 가운데로 설정 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
   text-align: center;
   display: flex;
   flex-direction: column;
