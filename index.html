@@ -188,17 +188,9 @@
         function parallaxIt() {
             var $fwindow = $(window);
             var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            var $contents = [];
             var $backgrounds = [];
 
-            // Set up parallax content and background elements
-            $('[data-type="content"]').each(function() {
-                var $contentObj = $(this);
-                $contentObj.__speed = ($contentObj.data('speed') || 1);
-                $contentObj.__fgOffset = $contentObj.offset().top;
-                $contents.push($contentObj);
-            });
-
+            // Set up background elements
             $('[data-type="background"]').each(function() {
                 var $backgroundObj = $(this);
                 $backgroundObj.__speed = ($backgroundObj.data('speed') || 1);
@@ -206,47 +198,64 @@
                 $backgrounds.push($backgroundObj);
             });
 
-            // Update positions of elements
+            // Update background positions
             function updatePositions() {
                 scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                // Update content positions
-                $contents.forEach(function($contentObj) {
-                    var yPos = $contentObj.__fgOffset - scrollTop / $contentObj.__speed;
-                    $contentObj.css('top', yPos);
-                });
 
                 // Update background positions (images)
                 $backgrounds.forEach(function($backgroundObj) {
                     var yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
                     $backgroundObj.css({
-                        backgroundPosition: '50% ' + (yPos * 1) + 'px', // 배경이 더 빠르게 움직이도록 설정
+                        backgroundPosition: 'center ' + (yPos * 1) + 'px', // 배경이 더 빠르게 움직이도록 설정
                     });
                 });
             }
 
-
-            // 모바일 및 데스크탑에서 부드럽게 스크롤 이벤트 처리
-            function onScroll() {
+            // Scroll event listener
+            $fwindow.on('scroll resize', function() {
                 window.requestAnimationFrame(updatePositions);
-            }
+            });
 
-            // 모바일 터치 이벤트 처리
-            function onTouchMove(e) {
-                e.preventDefault(); // 기본 스크롤 방지
-                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                window.requestAnimationFrame(updatePositions);
-            }
-
-            // 윈도우 이벤트 핸들러 추가
-            $fwindow.on('scroll resize', onScroll);
-            $fwindow.on('touchmove', onTouchMove);
-
-            // 초기화
+            // Initialize on load
             $fwindow.trigger('scroll');
         }
 
         parallaxIt();
+
+        window.addEventListener("scroll", function() {
+            const sections = document.querySelectorAll(".container section .image");
+
+            sections.forEach(function(section) {
+                let scrollPosition = window.scrollY;
+                let speed = 0.5; // 배경 이동 속도
+
+                // 초기 위치를 -20px로 조정
+                section.style.backgroundPosition = "center " + ((scrollPosition * speed) - 20) + "px";
+            });
+        });
+
+
+
+
+        // 모바일에서는 스크롤 이벤트 최적화를 위해 requestAnimationFrame을 사용
+        let scrollTimeout;
+        window.addEventListener("scroll", function() {
+            if (scrollTimeout) {
+                cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = requestAnimationFrame(handleScroll);
+        });
+
+        function handleScroll() {
+            const sections = document.querySelectorAll(".container section .image");
+            const scrollPosition = window.scrollY;
+            const speed = 0.5;
+
+            sections.forEach(function(section) {
+                // 초기 위치를 -20px로 조정
+                section.style.backgroundPosition = "center " + ((scrollPosition * speed) - 20) + "px";
+            });
+        }
 
     </script>
 
