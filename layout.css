@@ -201,6 +201,7 @@ td {
     height: 100%;
     position: absolute;
     z-index: 500;
+    transition: background-position 0.3s ease-out;
 }
 
 .container section .stuff {
