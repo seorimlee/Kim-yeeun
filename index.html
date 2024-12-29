@@ -1,45 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - A Pen by Johannes Kühlewindt</title>
-  <link rel="stylesheet" href="layout.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamless Parallax</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<!-- https://stackoverflow.com/questions/29240028/css-make-a-background-image-scroll-slower-than-everything-else -->
-<div class="scroll-divider"></div>
-<div class="bb-para" id="para1">
-  <h2>Digital<br> Experts</h2>
-  <span><button class="scroll-cta">mehr erfahren</button></span>
-</div>  
-<div class="scroll-divider"></div>
-
-<div class="bb-para" id="para2">
-  <h2>Digital <br />Experts</h2>
-  <span><button class="scroll-cta">mehr erfahren</button></span>
-</div>  
-<div class="scroll-divider"></div>
-
-<div class="bb-para" id="para3">
-  <h2>Digital <br />Experts</h2>
-  <span><button class="scroll-cta">mehr erfahren</button></span>
-</div>  
-<div class="scroll-divider"></div>
-<!-- partial -->
-<script>
-  // script.js
-document.addEventListener("scroll", () => {
-  const parallaxElements = document.querySelectorAll(".bb-para");
-  parallaxElements.forEach((element) => {
-    const scrollPosition = window.scrollY;
-    const offsetTop = element.offsetTop;
-    const speed = 0.5; // 스크롤 속도 비율 조정
-    const backgroundPositionY = (offsetTop - scrollPosition) * speed;
-    element.style.backgroundPosition = `center ${backgroundPositionY}px`;
-  });
-});
-</script>
+  <div class="container">
+    <div class="bb-para" id="para1">
+      <h2>Digital<br> Experts</h2>
+      <span><button class="scroll-cta">mehr erfahren</button></span>
+    </div>
+    <div class="bb-para" id="para2">
+      <h2>Digital <br />Experts</h2>
+      <span><button class="scroll-cta">mehr erfahren</button></span>
+    </div>
+    <div class="bb-para" id="para3">
+      <h2>Digital <br />Experts</h2>
+      <span><button class="scroll-cta">mehr erfahren</button></span>
+    </div>
+  </div>
 </body>
 </html>
