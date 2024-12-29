@@ -259,7 +259,7 @@ a {
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 .container-main {
-    background-image: url(main1.jpg);
+    background-image: url(main1.jpeg);
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -326,7 +326,6 @@ a {
     .table-container {top: 30px;}
     .table-container table th, td {padding: 10px 0;}
     .container section .image {
-        background-size: contain !important; /* 배경 이미지를 화면에 맞춤 */
         background-position: center !important; /* 중앙으로 위치 */
         background-repeat: no-repeat; /* 이미지 반복 방지 */
     }
