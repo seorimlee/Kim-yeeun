@@ -311,7 +311,7 @@ a {
     .container section .image {
         background-attachment: fixed; /* 고정 유지 */
         background-position: center;
-        background-size: 130%;
+        background-size: 130vw;
         background-repeat: no-repeat;
         height: 60vh; /* 모바일 환경에서도 동일 높이 */
     }
