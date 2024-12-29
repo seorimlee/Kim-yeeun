@@ -168,7 +168,7 @@ td {
 }
 
 .container section:nth-of-type(3) .image {
-    background-image: url(section3.jpeg);
+    background-image: url(section3.jpg);
     background-size: cover;
     background-position: center;
 }
