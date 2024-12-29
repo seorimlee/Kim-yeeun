@@ -307,7 +307,6 @@ a {
     .container section .stuff {height: 40vh;}
     .table-container {top: 30px;}
     .table-container table th, td {padding: 10px 0;}
-    @media screen and (max-width: 768px) {
     .container section .image {
         background-attachment: fixed; /* 고정 유지 */
         background-position: center;
@@ -315,7 +314,6 @@ a {
         background-repeat: no-repeat;
         height: 60vh; /* 모바일 환경에서도 동일 높이 */
     }
-}
 
     }
 }
