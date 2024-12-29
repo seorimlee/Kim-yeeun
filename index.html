@@ -220,7 +220,7 @@
                 $backgrounds.forEach(function($backgroundObj) {
                     var yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
                     $backgroundObj.css({
-                        backgroundPosition: (yPos * 1.5) + 'px', // 배경이 더 빠르게 움직이도록 설정
+                        backgroundPosition: '50% ' + (yPos * 1) + 'px', // 배경이 더 빠르게 움직이도록 설정
                     });
                 });
             }
