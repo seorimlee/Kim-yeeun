@@ -192,6 +192,7 @@
             var $contents = [];
             var $backgrounds = [];
 
+            // Set up parallax content and background elements
             $('[data-type="content"]').each(function() {
                 var $contentObj = $(this);
                 $contentObj.__speed = ($contentObj.data('speed') || 1);
@@ -206,6 +207,7 @@
                 $backgrounds.push($backgroundObj);
             });
 
+            // Update positions of elements
             function updatePositions() {
                 scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -222,16 +224,15 @@
                 });
             }
 
-            // Disable parallax on mobile
-            if ($(window).width() > 768) {
-                $fwindow.on('scroll resize', updatePositions);
-                $fwindow.trigger('scroll');
-            } else {
-                // Reset background positions for mobile
-                $('[data-type="background"]').css({
-                    backgroundPosition: '50% 0'
-                });
+            // Use requestAnimationFrame for better performance on mobile
+            function onScroll() {
+                window.requestAnimationFrame(updatePositions);
             }
+
+            $fwindow.on('scroll resize', onScroll);
+
+            // Trigger the scroll event to initialize
+            $fwindow.trigger('scroll');
         }
 
         parallaxIt();
@@ -296,11 +297,9 @@
     <script>
         function toggleFlip() {
             const container = document.querySelector('.flip-container');
-            if (window.innerWidth > 768) {
-                container.classList.toggle('flipped');
-            } else {
-                alert('모바일에서는 이 기능이 비활성화됩니다.');
-            }
+
+            // Flip 효과를 모바일에서도 동작하도록 유지
+            container.classList.toggle('flipped');
         }
 
     </script>
