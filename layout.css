@@ -16,7 +16,7 @@ header {
 }
 
 .container-main {
-    background-image: url(main1.jpeg);
+    background-image: url(main1.jpg);
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -62,7 +62,6 @@ header {
     text-align: center;
     position: relative;
     overflow: hidden; /* 이미지가 넘침 방지 */
-    background-color: #000;
     justify-content: center;
     background-size: 120% 120%;  /* 배경 이미지를 확대하여 더 자연스러운 보임 */
     background-position: center;  
