@@ -186,86 +186,95 @@
 
     <script>
         function parallaxIt() {
-        var $fwindow = $(window);
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        var $contents = [];
-        var $backgrounds = [];
-    
-        // Set up parallax content and background elements
-        $('[data-type="content"]').each(function() {
-            var $contentObj = $(this);
-            $contentObj.__speed = ($contentObj.data('speed') || 1);
-            $contentObj.__fgOffset = $contentObj.offset().top;
-            $contents.push($contentObj);
-        });
-    
-        $('[data-type="background"]').each(function() {
-            var $backgroundObj = $(this);
-            $backgroundObj.__speed = ($backgroundObj.data('speed') || 1);
-            $backgroundObj.__fgOffset = $backgroundObj.offset().top;
-            $backgrounds.push($backgroundObj);
-        });
-    
-        // Update positions of elements
-        function updatePositions() {
-            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-            $contents.forEach(function($contentObj) {
-                var yPos = $contentObj.__fgOffset - scrollTop / $contentObj.__speed;
-                $contentObj.css('top', yPos);
+            var $fwindow = $(window);
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var $contents = [];
+            var $backgrounds = [];
+
+            // Set up parallax content and background elements
+            $('[data-type="content"]').each(function() {
+                var $contentObj = $(this);
+                $contentObj.__speed = ($contentObj.data('speed') || 1);
+                $contentObj.__fgOffset = $contentObj.offset().top;
+                $contents.push($contentObj);
             });
-    
-            $backgrounds.forEach(function($backgroundObj) {
-                var yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
-                $backgroundObj.css({
-                    backgroundPosition: '50% ' + yPos + 'px',
+
+            $('[data-type="background"]').each(function() {
+                var $backgroundObj = $(this);
+                $backgroundObj.__speed = ($backgroundObj.data('speed') || 1);
+                $backgroundObj.__fgOffset = $backgroundObj.offset().top;
+                $backgrounds.push($backgroundObj);
+            });
+
+            // Update positions of elements
+            function updatePositions() {
+                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                $contents.forEach(function($contentObj) {
+                    var yPos = $contentObj.__fgOffset - scrollTop / $contentObj.__speed;
+                    $contentObj.css('top', yPos);
                 });
-            });
-        }
-    
-        // Use requestAnimationFrame for better performance on mobile
-        function onScroll() {
-            window.requestAnimationFrame(updatePositions);
-        }
-    
-        // Handle both scroll and touch events
-        function onTouchMove(e) {
-            // Prevent default scrolling behavior to allow custom parallax behavior
-            e.preventDefault();
-            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            window.requestAnimationFrame(updatePositions);
-        }
-    
-        // Throttle the scroll events for better performance
-        function throttle(func, wait) {
-            let lastTime = 0;
-            return function() {
-                let now = new Date().getTime();
-                if (now - lastTime >= wait) {
-                    lastTime = now;
-                    func();
+
+                $backgrounds.forEach(function($backgroundObj) {
+                    var yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
+                    $backgroundObj.css({
+                        backgroundPosition: '50% ' + yPos + 'px',
+                    });
+                });
+            }
+
+            // Use requestAnimationFrame for better performance on mobile
+            function onScroll() {
+                window.requestAnimationFrame(updatePositions);
+            }
+
+            // Handle both scroll and touch events
+            function onTouchMove(e) {
+                // Prevent default scrolling behavior to allow custom parallax behavior
+                if (e.target === document.body || e.target === document.documentElement) {
+                    e.preventDefault(); // Prevent the default scroll when touching the body or html
+                }
+                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                window.requestAnimationFrame(updatePositions);
+            }
+
+            // Throttle the scroll events for better performance
+            function throttle(func, wait) {
+                let lastTime = 0;
+                return function() {
+                    let now = new Date().getTime();
+                    if (now - lastTime >= wait) {
+                        lastTime = now;
+                        func();
+                    }
                 }
             }
-        }
-    
-        const throttledScroll = throttle(onScroll, 16); // Throttle at 60 FPS (16ms)
-    
-        // Add event listener for touch and scroll events
-        $fwindow.on('scroll resize', throttledScroll);
-        if ('ontouchstart' in window) {
-            // For mobile devices, use touchmove event with passive true
-            $fwindow[0].addEventListener('touchmove', onTouchMove, { passive: true });
-        } else {
-            // For non-touch (desktop) devices, use mouse wheel or scroll event
-            $fwindow.on('wheel', throttledScroll);
-        }
-    
-        // Trigger the scroll event to initialize
-        $fwindow.trigger('scroll');
-    }
-    
-    parallaxIt();
 
+            const throttledScroll = throttle(onScroll, 16); // Throttle at 60 FPS (16ms)
+
+            // Add event listener for touch and scroll events
+            $fwindow.on('scroll resize', throttledScroll);
+            if ('ontouchstart' in window) {
+                // For mobile devices, use touchmove event with passive true
+                $fwindow[0].addEventListener('touchstart', function(e) {
+                    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                }, {
+                    passive: true
+                });
+
+                $fwindow[0].addEventListener('touchmove', onTouchMove, {
+                    passive: false
+                }); // passive: false allows preventDefault()
+            } else {
+                // For non-touch (desktop) devices, use mouse wheel or scroll event
+                $fwindow.on('wheel', throttledScroll);
+            }
+
+            // Trigger the scroll event to initialize
+            $fwindow.trigger('scroll');
+        }
+
+        parallaxIt();
 
     </script>
 
