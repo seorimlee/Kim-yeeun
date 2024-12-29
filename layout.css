@@ -93,7 +93,7 @@ header > ul:nth-child(1) {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #ff4d4d;
+    background-color: #fff;
     color: #000;
     border: none;
     padding: 5px 10px;
@@ -316,4 +316,6 @@ a {
     .container-main p {font-size: 4em;}
     .container section {height: 60vh; background-size: cover;}
     .container section .stuff {height: 60vh;}
+    .table-container {top: 30px;}
+    .table-container table th, td {padding: 10px 0;}
 }
