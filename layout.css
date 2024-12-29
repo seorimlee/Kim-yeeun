@@ -307,3 +307,11 @@ a {
         background-color: #fff;
     }
 }
+
+@media screen and (max-width: 768px) {
+    header > ul {flex-direction: column;}
+    header > ul:nth-child(2) {margin-right: 2%;}
+    header > ul:nth-child(2) > li {text-align: right;}
+    .container-main p {font-size: 4em;}
+    .container section {height: 60vh; background-size: cover;}
+}
