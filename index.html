@@ -240,22 +240,26 @@
         // 모바일에서는 스크롤 이벤트 최적화를 위해 requestAnimationFrame을 사용
         let scrollTimeout;
         window.addEventListener("scroll", function() {
-            if (scrollTimeout) {
-                cancelAnimationFrame(scrollTimeout);
-            }
-            scrollTimeout = requestAnimationFrame(handleScroll);
-        });
-
-        function handleScroll() {
             const sections = document.querySelectorAll(".container section .image");
-            const scrollPosition = window.scrollY;
-            const speed = 0.5;
 
-            sections.forEach(function(section) {
-                // 초기 위치를 -20px로 조정
-                section.style.backgroundPosition = "center " + ((scrollPosition * speed) - 20) + "px";
+            sections.forEach(function(section, index) {
+                let scrollPosition = window.scrollY; // 현재 스크롤 위치
+                let viewportHeight = window.innerHeight; // 뷰포트 높이
+                let sectionTop = section.getBoundingClientRect().top + scrollPosition; // 섹션의 문서 상단 기준 위치
+                let sectionCenter = sectionTop + section.offsetHeight / 2; // 섹션의 중앙 위치
+                let targetScrollPosition = sectionCenter - viewportHeight / 2; // 섹션 중앙이 화면 중앙에 올 때의 스크롤 값
+
+                if (index === 0) {
+                    // 첫 번째 섹션에 대해 중앙 위치의 background-position 값 계산
+                    let offset = 877 - (targetScrollPosition * 0.5); // targetScrollPosition에서 원하는 값으로 보정
+                    section.style.backgroundPosition = `center ${offset}px`;
+                } else {
+                    // 다른 섹션은 일반적인 스크롤 계산
+                    let speed = 0.5; // 배경 이동 속도
+                    section.style.backgroundPosition = `center ${(scrollPosition * speed)}px`;
+                }
             });
-        }
+        });
 
     </script>
 
