@@ -322,12 +322,11 @@ a {
     header > ul:nth-child(2) > li {text-align: right;}
     .container-main p {font-size: 4em;}
     .container section {height: 80vh; background-size: cover;}
-    .container section img {height: 100%;}
     .container section .stuff {height: 40vh;}
     .table-container {top: 30px;}
     .table-container table th, td {padding: 10px 0;}
     .container section .image {
-        background-size: contain; /* 배경 이미지를 화면에 맞춤 */
+        background-size: contain !important; /* 배경 이미지를 화면에 맞춤 */
         background-position: center !important; /* 중앙으로 위치 */
         background-repeat: no-repeat; /* 이미지 반복 방지 */
     }
