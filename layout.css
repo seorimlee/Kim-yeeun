@@ -1,6 +1,7 @@
 @import "compass/css3";
 @import url("https://use.typekit.net/qyf3oio.css");
 
+html {scroll-behavior: smooth;}
 html,
 body {
     font-family: "halyard-display", sans-serif;
