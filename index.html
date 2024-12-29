@@ -88,6 +88,38 @@
         }
 
         parallaxIt();
+
+        window.addEventListener("scroll", function() {
+            const sections = document.querySelectorAll(".container section .image");
+
+            sections.forEach(function(section) {
+                let scrollPosition = window.scrollY;
+                let speed = 0.5; // 배경 이동 속도 조정
+
+                // 배경 위치 업데이트
+                section.style.backgroundPosition = "center " + (scrollPosition * speed) + "px";
+            });
+        });
+
+        // 모바일에서는 스크롤 이벤트 최적화를 위해 requestAnimationFrame을 사용
+        let scrollTimeout;
+        window.addEventListener("scroll", function() {
+            if (scrollTimeout) {
+                cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = requestAnimationFrame(handleScroll);
+        });
+
+        function handleScroll() {
+            const sections = document.querySelectorAll(".container section .image");
+            const scrollPosition = window.scrollY;
+            const speed = 0.5;
+
+            sections.forEach(function(section) {
+                section.style.backgroundPosition = "center " + (scrollPosition * speed) + "px";
+            });
+        }
+
     </script>
 </body>
 
