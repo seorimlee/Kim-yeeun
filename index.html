@@ -223,54 +223,23 @@
                 });
             }
 
-            // Use requestAnimationFrame for better performance on mobile
+            // 모바일 및 데스크탑에서 부드럽게 스크롤 이벤트 처리
             function onScroll() {
                 window.requestAnimationFrame(updatePositions);
             }
 
-            // Handle both scroll and touch events
+            // 모바일 터치 이벤트 처리
             function onTouchMove(e) {
-                // Prevent default scrolling behavior to allow custom parallax behavior
-                if (e.target === document.body || e.target === document.documentElement) {
-                    e.preventDefault(); // Prevent the default scroll when touching the body or html
-                }
+                e.preventDefault(); // 기본 스크롤 방지
                 scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 window.requestAnimationFrame(updatePositions);
             }
 
-            // Throttle the scroll events for better performance
-            function throttle(func, wait) {
-                let lastTime = 0;
-                return function() {
-                    let now = new Date().getTime();
-                    if (now - lastTime >= wait) {
-                        lastTime = now;
-                        func();
-                    }
-                }
-            }
+            // 윈도우 이벤트 핸들러 추가
+            $fwindow.on('scroll resize', onScroll);
+            $fwindow.on('touchmove', onTouchMove);
 
-            const throttledScroll = throttle(onScroll, 16); // Throttle at 60 FPS (16ms)
-
-            // Add event listener for touch and scroll events
-            $fwindow.on('scroll resize', throttledScroll);
-            if ('ontouchstart' in window) {
-                // For mobile devices, use touchmove event with passive true
-                $fwindow[0].addEventListener('touchstart', function(e) {
-                    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                }, {
-                    passive: true
-                });
-
-                $fwindow[0].addEventListener('touchmove', onTouchMove, {
-                    passive: false
-                }); // passive: false allows preventDefault()
-            } else {
-                // For non-touch (desktop) devices, use mouse wheel or scroll event
-                $fwindow.on('wheel', throttledScroll);
-            }
-
-            // Trigger the scroll event to initialize
+            // 초기화
             $fwindow.trigger('scroll');
         }
 
