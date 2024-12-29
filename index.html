@@ -185,7 +185,6 @@
     </div>
 
     <script>
-        // makes the parallax elements
         function parallaxIt() {
             var $fwindow = $(window);
             var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -229,7 +228,16 @@
                 window.requestAnimationFrame(updatePositions);
             }
 
+            // Handle both scroll and touch events
+            function onTouchMove(e) {
+                // Prevent default scrolling behavior to allow custom parallax behavior
+                e.preventDefault();
+                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                window.requestAnimationFrame(updatePositions);
+            }
+
             $fwindow.on('scroll resize', onScroll);
+            $fwindow.on('touchmove', onTouchMove);
 
             // Trigger the scroll event to initialize
             $fwindow.trigger('scroll');
@@ -297,10 +305,11 @@
     <script>
         function toggleFlip() {
             const container = document.querySelector('.flip-container');
-
-            // Flip 효과를 모바일에서도 동작하도록 유지
             container.classList.toggle('flipped');
         }
+
+        // Enable flip effect on touch devices
+        document.querySelector('.flip-container').addEventListener('touchstart', toggleFlip);
 
     </script>
 
