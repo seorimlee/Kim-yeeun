@@ -1,20 +1,30 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box; /* 모든 요소의 박스 크기 계산 방식 통일 */
   font-family: sans-serif;
 }
 
+body {
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .bb-para {
-  height: 60vh;
+  height: 100vh; /* 화면 전체를 차지하도록 설정 */
   width: 100%;
   color: white;
   background-size: cover; /* 배경 이미지를 컨테이너에 맞게 조정 */
   background-position: center; /* 배경 이미지 위치를 가운데로 설정 */
   background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
-  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 #para1 {
@@ -33,15 +43,11 @@
   background: transparent;
   color: white;
   border: 2px solid white;
-  border-radius: .5em;
+  border-radius: 0.5em;
   padding: 1em 4em;
-}
-
-.scroll-divider {
-  height: 0; /* 스크롤 디바이더 간격 제거 */
 }
 
 h2 {
   font-size: 3em;
-  text-shadow: 0 0px 2px black, 0 0 20px rgba(0,0,0,.3);
+  text-shadow: 0 0px 2px black, 0 0 20px rgba(0, 0, 0, 0.3);
 }
