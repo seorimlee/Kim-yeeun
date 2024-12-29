@@ -132,3 +132,17 @@ header {
     z-index: 100;
     font-size: 2em;
 }
+
+
+
+@media (max-width: 768px) {
+    /* 모바일 화면에서 배경 이미지 크기 조정 */
+    .container section {
+        height: 100vh;  /* 모바일에서는 화면을 꽉 채운 높이 */
+        background-size: 120% 120%; 
+    }
+
+    .container section .image {
+        background-attachment: scroll; /* 모바일에서는 고정되지 않도록 설정 */
+    }
+}
