@@ -210,18 +210,24 @@
             function updatePositions() {
                 scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+                // Update content positions
                 $contents.forEach(function($contentObj) {
                     var yPos = $contentObj.__fgOffset - scrollTop / $contentObj.__speed;
                     $contentObj.css('top', yPos);
                 });
 
+                // Update background positions (images)
                 $backgrounds.forEach(function($backgroundObj) {
                     var yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
                     $backgroundObj.css({
-                        backgroundPosition: '50% ' + yPos + 'px',
+                        backgroundPosition: '50% ' + (yPos * 1.5) + 'px', // 배경이 더 빠르게 움직이도록 설정
                     });
                 });
             }
+
+            $backgroundObj.css({
+                backgroundPosition: '50% ' + (yPos * 1.5) + 'px', // 배경 이동 속도 강화
+            });
 
             // 모바일 및 데스크탑에서 부드럽게 스크롤 이벤트 처리
             function onScroll() {
