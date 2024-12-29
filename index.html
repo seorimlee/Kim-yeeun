@@ -236,7 +236,20 @@
                 window.requestAnimationFrame(updatePositions);
             }
 
-            $fwindow.on('scroll resize', onScroll);
+            // Throttle the scroll events for better performance
+            function throttle(func, wait) {
+                let lastTime = 0;
+                return function() {
+                    let now = new Date().getTime();
+                    if (now - lastTime >= wait) {
+                        lastTime = now;
+                        func();
+                    }
+                }
+            }
+
+            const throttledScroll = throttle(onScroll, 16); // Throttle at 60 FPS (16ms)
+            $fwindow.on('scroll resize', throttledScroll);
             $fwindow.on('touchmove', onTouchMove);
 
             // Trigger the scroll event to initialize
