@@ -28,6 +28,18 @@
 </div>  
 <div class="scroll-divider"></div>
 <!-- partial -->
-  
+<script>
+  // script.js
+document.addEventListener("scroll", () => {
+  const parallaxElements = document.querySelectorAll(".bb-para");
+  parallaxElements.forEach((element) => {
+    const scrollPosition = window.scrollY;
+    const offsetTop = element.offsetTop;
+    const speed = 0.5; // 스크롤 속도 비율 조정
+    const backgroundPositionY = (offsetTop - scrollPosition) * speed;
+    element.style.backgroundPosition = `center ${backgroundPositionY}px`;
+  });
+});
+</script>
 </body>
 </html>
