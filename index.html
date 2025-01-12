@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,7 +16,7 @@
             margin: 0;
             background: #fff;
             color: #000;
-            overflow-x: hidden;
+            overflow-x: hidden; /* 수평 스크롤을 방지 */
         }
 
         /* 섹션 기본 스타일 */
@@ -28,17 +27,10 @@
             justify-content: center;
             overflow: hidden;
             background-size: cover !important;
-            /* 배경 이미지 크기 항상 유지 */
             background-position: center;
             background-repeat: no-repeat;
-            min-height: 100vh;
-            /* 화면 전체 높이로 설정 */
+            min-height: 100vh; /* 화면 높이 맞춤 */
             transition: background-position 0.1s ease-out;
-            /* 배경 이동 부드럽게 */
-        }
-        
-        .parallax_section section3 img{
-            
         }
 
         .parallax_section h2 {
@@ -64,19 +56,22 @@
         /* 모바일에서의 추가 최적화 */
         @media (max-width: 768px) {
             body {
-            overflow-x: auto; /* 모바일에서 수평 스크롤 문제 해결 */
+                overflow-x: auto; /* 모바일에서 수평 스크롤이 필요할 수 있으므로 수정 */
+            }
+
+            .parallax_section h2 {
+                font-size: 2rem; /* 모바일에서 텍스트 크기 조정 */
             }
 
             .parallax_section {
-                min-height: auto;
-                height: 100vh; /* 100vh 대신 height를 적용해보세요 */
+                height: auto;
+                min-height: 100vh;
             }
         }
-
     </style>
 </head>
-
 <body>
+
     <div class="parallax_section section1">
         <h2>CSS3 <br> Parallax Effect</h2>
     </div>
@@ -87,56 +82,64 @@
         <h2>CSS3 <br> Parallax Effect</h2>
     </div>
 
-
     <script>
-    // 성능 최적화를 위한 requestAnimationFrame 사용
-    function updateParallax() {
-        const parallaxSections = document.querySelectorAll('.parallax_section');
-        const scrollPosition = window.pageYOffset;
+        // 모바일에서의 100vh 높이 문제 해결을 위해 JS로 vh 값 적용
+        const setVhUnit = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        };
 
-        parallaxSections.forEach((section, index) => {
-            const sectionHeight = section.offsetHeight; // 섹션의 실제 높이
-            const speed = (index + 1) * 0.2; // 섹션 별 배경 속도
-            let offset = (scrollPosition / sectionHeight) * 100; // 백분율로 이동값 계산 (0%에서 100%)
+        // 모바일에서 화면 크기 변경시 대응
+        window.addEventListener('resize', setVhUnit);
+        setVhUnit();
 
-            // 배경 이미지의 이동을 0%에서 100%로 제한
-            offset = Math.min(Math.max(offset, 0), 100);  // 0% ~ 100% 사이로 제한
+        // 성능 최적화를 위한 requestAnimationFrame 사용
+        function updateParallax() {
+            const parallaxSections = document.querySelectorAll('.parallax_section');
+            const scrollPosition = window.pageYOffset;
 
-            if (section.classList.contains('section3')) {  // 세 번째 섹션
-                const secondSection = document.querySelector('.section2');
-                const secondSectionTop = secondSection.offsetTop;
-                const thirdSectionTop = section.offsetTop;
+            parallaxSections.forEach((section, index) => {
+                const sectionHeight = section.offsetHeight; // 섹션의 실제 높이
+                const speed = (index + 1) * 0.2; // 섹션 별 배경 속도
+                let offset = (scrollPosition / sectionHeight) * 100; // 백분율로 이동값 계산 (0%에서 100%)
 
-                // 두 번째 섹션이 시작되면 세 번째 섹션의 배경이 이동하도록 처리
-                if (scrollPosition < secondSectionTop) {
-                    section.style.backgroundPosition = `center 0%`; // 두 번째 섹션 시작 전 배경 고정
+                // 배경 이미지의 이동을 0%에서 100%로 제한
+                offset = Math.min(Math.max(offset, 0), 100);  // 0% ~ 100% 사이로 제한
+
+                if (section.classList.contains('section3')) {  // 세 번째 섹션
+                    const secondSection = document.querySelector('.section2');
+                    const secondSectionTop = secondSection.offsetTop;
+                    const thirdSectionTop = section.offsetTop;
+
+                    // 두 번째 섹션이 시작되면 세 번째 섹션의 배경이 이동하도록 처리
+                    if (scrollPosition < secondSectionTop) {
+                        section.style.backgroundPosition = `center 0%`; // 두 번째 섹션 시작 전 배경 고정
+                    } else {
+                        // 두 번째 섹션이 시작되면 세 번째 섹션의 배경 이미지가 이동
+                        const scrollFromSecondSection = scrollPosition - secondSectionTop; // 두 번째 섹션 이후 스크롤
+                        const thirdSectionHeight = sectionHeight; // 세 번째 섹션의 높이
+
+                        // 배경 이미지가 끝까지 이동하도록 비율로 계산
+                        const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
+                        const offset = scrollRatio * 100;  // 0%에서 100%로 배경 이미지 이동
+
+                        section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`; // 0%에서 100%로 배경 이미지 이동
+                    }
                 } else {
-                    // 두 번째 섹션이 시작되면 세 번째 섹션의 배경 이미지가 이동
-                    const scrollFromSecondSection = scrollPosition - secondSectionTop; // 두 번째 섹션 이후 스크롤
-                    const thirdSectionHeight = sectionHeight; // 세 번째 섹션의 높이
-
-                    // 배경 이미지가 끝까지 이동하도록 비율로 계산
-                    const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
-                    const offset = scrollRatio * 100;  // 0%에서 100%로 배경 이미지 이동
-
-                    section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`; // 0%에서 100%로 배경 이미지 이동
+                    // 첫 번째, 두 번째 섹션의 배경 이미지 이동
+                    section.style.backgroundPosition = `center ${offset}%`; // 0%에서 100%로 배경 이미지 이동
                 }
-            } else {
-                // 첫 번째, 두 번째 섹션의 배경 이미지 이동
-                section.style.backgroundPosition = `center ${offset}%`; // 0%에서 100%로 배경 이미지 이동
-            }
+            });
+        }
+
+        // 스크롤 이벤트에 최적화된 방식으로 배경 이미지 위치 업데이트
+        window.addEventListener('scroll', function() {
+            requestAnimationFrame(updateParallax); // 최적화된 애니메이션
         });
-    }
 
-    // 스크롤 이벤트에 최적화된 방식으로 배경 이미지 위치 업데이트
-    window.addEventListener('scroll', function() {
-        requestAnimationFrame(updateParallax); // 최적화된 애니메이션
-    });
-
-    // 페이지 로딩 시 초기 배경 업데이트
-    updateParallax();
-</script>
+        // 페이지 로딩 시 초기 배경 업데이트
+        updateParallax();
+    </script>
 
 </body>
-
 </html>
