@@ -12,6 +12,10 @@
             box-sizing: border-box;
         }
 
+        a {
+            text-decoration: none;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -49,7 +53,7 @@
             height: auto;
             overflow: hidden;
             position: relative;
-            margin-bottom: 30px;
+            margin: 30px 0;
         }
 
         video {
@@ -145,6 +149,63 @@
             }
         }
 
+        /* 팝업 오버레이 */
+        .popup-overlay {
+            display: none;
+            /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* 팝업 컨테이너 */
+        .popup-container {
+            background-color: white;
+            padding: 20px;
+            width: 80%;
+            height: 70vh;
+            overflow: auto;
+            position: relative;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 닫기 버튼 */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #000;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0)
+        }
+
+        /* 테이블 스타일 */
+        .table-container table {
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        .table-container th,
+        .table-container td {
+            padding: 10px;
+            border: 0px;
+            text-align: center;
+        }
+
+        .table-container th {
+            border-bottom: 1px solid;
+        }
+
+
         /* 모바일에서의 추가 최적화 */
         @media (max-width: 768px) {
             body {
@@ -154,6 +215,10 @@
 
             header>ul {
                 flex-direction: column;
+            }
+
+            header>ul>li {
+                font-size: 20px;
             }
 
             header>ul:nth-child(2) {
@@ -178,12 +243,13 @@
             }
 
             .section2 {
-                min-height: 55vh;
+                min-height: 90vh;
             }
 
             .section3 {
-                min-height: 55vh;
+                min-height: 90vh;
             }
+
         }
 
 
@@ -199,9 +265,10 @@
         <ul>
             <li>KIM YE EUN</li>
         </ul>
-        <ul>
-            <li class="category-work">WORK</li>
+        <ul class="category">
             <li class="category-video">VIDEO</li>
+            <li class="category-work">WORK</li>
+            <li class="category-work">INTERVIEW</li>
             <li class="category-contact">CONTACT</li>
         </ul>
     </header>
@@ -215,17 +282,188 @@
     <div class="video-container">
         <video autoplay muted loop>
             <source src="yaeeun-video2.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
     </div>
     <div class="parallax_section section2">
-        <h2>CSS3 <br> Parallax Effect</h2>
+        <h2>WORKS</h2>
+    </div>
+    <!-- 팝업창 -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container">
+            <button class="close-btn" id="closePopup">X</button>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>TITLE</th>
+                        <th>ROLE</th>
+                    </tr>
+                    <tr>
+                        <td>2023</td>
+                        <td>콘크리트 유토피아</td>
+                        <td>동거녀</td>
+                    </tr>
+                    <tr>
+                        <td>2023</td>
+                        <td>엄마의 땅: 그리샤와 숲의 주인</td>
+                        <td>주연 / 슈라 목소리</td>
+                    </tr>
+                    <tr>
+                        <td>2022</td>
+                        <td>올빼미</td>
+                        <td>서상궁</td>
+                    </tr>
+                    <tr>
+                        <td>2021</td>
+                        <td>브로커</td>
+                        <td>임씨 아내</td>
+                    </tr>
+                    <tr>
+                        <td>2021</td>
+                        <td>특송</td>
+                        <td>지선</td>
+                    </tr>
+                    <tr>
+                        <td>2020</td>
+                        <td>당신은 믿지 않겠지만</td>
+                        <td>주연 / 봄</td>
+                    </tr>
+                    <tr>
+                        <td>2020</td>
+                        <td>생각의 여름</td>
+                        <td>주연 / 현실</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>특송</td>
+                        <td>지선</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>타짜 3: 원 아이드 잭</td>
+                        <td>준이 엄마</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>오! 문희</td>
+                        <td>한재숙</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>항거</td>
+                        <td>권애라</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>어게인</td>
+                        <td>주연 / 조연주</td>
+                    </tr>
+                    <tr>
+                        <td>2018</td>
+                        <td>너와 극장에서</td>
+                        <td>주연 / 선미</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>너는 결코 서둘지 말라</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>소공녀</td>
+                        <td>재경 역</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>호랑이보다 무서운 겨울 손님</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>김군</td>
+                        <td>조사자</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>군함도</td>
+                        <td>기생</td>
+                    </tr>
+                    <tr>
+                        <td>2016</td>
+                        <td>환절기</td>
+                        <td>지연</td>
+                    </tr>
+                    <tr>
+                        <td>2016</td>
+                        <td>양치기들</td>
+                        <td>미진</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>토마: 무녀굴</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="parallax_section section4">
+        <h2>INTERVIEW</h2>
     </div>
     <div class="parallax_section section3">
-        <h2>CSS3 <br> Parallax Effect</h2>
+        <a href="https://www.instagram.com/kimyaeeun/">
+            <h2>INSTAGRAM</h2>
+        </a>
     </div>
 
     <script>
+        // 폰트 색상
+        window.addEventListener('scroll', () => {
+            const section2 = document.querySelector('.section2');
+            const video = document.querySelector('.video-container');
+            const section4 = document.querySelector('.section4');
+            const section3 = document.querySelector('.section3');
+            const headerItems = document.querySelectorAll('header > ul > li');
+            const headerItemSelect1 = document.querySelectorAll('header > ul:nth-of-type(2) > li:first-child');
+            const headerItemSelect2 = document.querySelectorAll('header > ul:nth-of-type(2) > li:nth-of-type(2)');
+            const headerItemSelect3 = document.querySelectorAll('header > ul:nth-of-type(2) > li:nth-of-type(3)');
+            const headerItemSelect4 = document.querySelectorAll('header > ul:nth-of-type(2) > li:nth-of-type(4)');
+
+            const scrollPosition = window.pageYOffset;
+
+            // section2 관련 스타일 변경
+            if (scrollPosition >= section2.offsetTop && scrollPosition < section2.offsetTop + section2.offsetHeight) {
+                headerItems.forEach(item => item.style.color = '#000'); // section2에서만 모든 항목의 폰트 색상을 검정으로 변경
+                headerItemSelect2.forEach(item => item.style.borderBottom = '1px solid'); // section2에서 선택된 항목의 하단 테두리 적용
+            } else {
+                headerItems.forEach(item => item.style.color = ''); // 원래 색상으로 복원
+                headerItemSelect2.forEach(item => item.style.borderBottom = ''); // section2에서만 데코레이션 추가
+            }
+
+            // video 관련 스타일 변경
+            if (scrollPosition >= video.offsetTop && scrollPosition < video.offsetTop + video.offsetHeight) {
+                headerItemSelect1.forEach(item => item.style.borderBottom = '1px solid #fff');
+            } else {
+                headerItemSelect1.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+            }
+
+            // interview 관련 스타일 변경
+            if (scrollPosition >= section4.offsetTop && scrollPosition < section4.offsetTop + section4.offsetHeight) {
+                headerItemSelect3.forEach(item => item.style.borderBottom = '1px solid #fff');
+            } else {
+                headerItemSelect3.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+            }
+
+            // instagram 관련 스타일 변경
+            if (scrollPosition >= section3.offsetTop && scrollPosition < section3.offsetTop + section3.offsetHeight) {
+                headerItemSelect4.forEach(item => item.style.borderBottom = '1px solid #fff');
+            } else {
+                headerItemSelect4.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+            }
+        });
+
+
+
         // Typed.js 효과
         const typedTextSpan = document.querySelector(".typed-text");
         const cursorSpan = document.querySelector(".cursor");
@@ -270,7 +508,7 @@
 
         // 모바일에서의 100vh 높이 문제 해결을 위한 JS
         const setVhUnit = () => {
-            const vh = window.innerHeight * 0.01;
+            const vh = window.innerHeight * 0.03;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         };
 
@@ -288,14 +526,34 @@
 
             parallaxSections.forEach((section, index) => {
                 const sectionHeight = section.offsetHeight;
-                let offset = (scrollPosition / sectionHeight) * 200; // 배경 이동 범위 확대 (200%까지)
+                let offset = (scrollPosition / sectionHeight) * 100; // 배경 이동 범위 확대 (200%까지)
 
                 // 배경 이미지 이동 속도 조정 (모바일에서는 빠르게 이동)
-                offset = Math.min(Math.max(offset, -50), 150); // 0% ~ 200% 사이로 배경 이미지 이동 (더 많이 이동)
+                offset = Math.min(Math.max(offset, 20), 60); // 0% ~ 200% 사이로 배경 이미지 이동 (더 많이 이동)
 
                 // 섹션의 배경 이동
                 if (section.classList.contains('section3')) {
                     const secondSection = document.querySelector('.section2');
+                    const secondSectionTop = secondSection.offsetTop;
+
+                    if (scrollPosition < secondSectionTop) {
+                        section.style.backgroundPosition = `center 20%`;
+                    } else {
+                        const scrollFromSecondSection = scrollPosition - secondSectionTop;
+                        const thirdSectionHeight = sectionHeight;
+
+                        const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
+                        const offset = scrollRatio * 60; // 0%에서 200%로 배경 이미지 이동
+
+                        section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`;
+                    }
+                } else {
+                    section.style.backgroundPosition = `center ${offset}%`;
+                }
+
+                // 섹션의 배경 이동
+                if (section.classList.contains('section2')) {
+                    const secondSection = document.querySelector('.video-container');
                     const secondSectionTop = secondSection.offsetTop;
 
                     if (scrollPosition < secondSectionTop) {
@@ -305,12 +563,10 @@
                         const thirdSectionHeight = sectionHeight;
 
                         const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
-                        const offset = scrollRatio * 200; // 0%에서 200%로 배경 이미지 이동
+                        const offset = scrollRatio * 80; // 0%에서 200%로 배경 이미지 이동
 
-                        section.style.backgroundPosition = `center ${Math.min(offset, 200)}%`;
+                        section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`;
                     }
-                } else {
-                    section.style.backgroundPosition = `center ${offset}%`;
                 }
             });
         }
@@ -327,6 +583,16 @@
 
         // 페이지 로딩 시 초기 배경 업데이트
         updateParallax();
+
+        // section2 클릭 시 팝업 열기
+        document.querySelector('.section2').addEventListener('click', function() {
+            document.getElementById('popupOverlay').style.display = 'flex'; // 팝업 열기
+        });
+
+        // 팝업 닫기 버튼 클릭 시 팝업 닫기
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('popupOverlay').style.display = 'none'; // 팝업 닫기
+        });
 
     </script>
 </body>
