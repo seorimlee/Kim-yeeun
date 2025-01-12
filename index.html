@@ -9,25 +9,28 @@
         *, *:after, *:before {
             box-sizing: border-box;
         }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             background: #fff;
             color: #000;
+            overflow-x: hidden; /* 수평 스크롤 방지 */
         }
 
-        /* parallax 효과를 위한 섹션 스타일 */
+        /* 섹션 기본 스타일 */
         .parallax_section {
-            min-height: 100vh;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            height: 100vh;
+            overflow: hidden;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* 기본 parallax 효과 */
         }
+
         .parallax_section h2 {
             color: #fff;
             font-size: 4rem;
@@ -35,30 +38,25 @@
             z-index: 1;
         }
 
-        /* 각 섹션의 배경 이미지 설정 */
+        /* 각 섹션에 고유 배경 이미지 추가 */
         .section1 {
             background-image: url('section1.jpg');
         }
+
         .section2 {
             background-image: url('section2.jpg');
         }
+
         .section3 {
             background-image: url('section3.jpg');
         }
 
-        /* 모바일에서 background-attachment를 우회하기 위한 방법 */
-        @media (max-width: 768px) {
-            .parallax_section {
-                background-attachment: scroll; /* 모바일에서 고정되지 않도록 수정 */
-                background-position: center; /* 기본 위치로 설정 */
-            }
-        }
     </style>
 </head>
 
 <body>
     <div class="parallax_section section1">
-        <h2>CSS <br> Parallax Effect</h2>
+        <h2>CSS3 <br> Parallax Effect</h2>
     </div>
     <div class="parallax_section section2">
         <h2>CSS3 <br> Parallax Effect</h2>
@@ -66,6 +64,46 @@
     <div class="parallax_section section3">
         <h2>CSS3 <br> Parallax Effect</h2>
     </div>
+
+    <script>
+        function updateParallax() {
+            const parallaxSections = document.querySelectorAll('.parallax_section');
+            const scrollPosition = window.pageYOffset;
+
+            // 화면 전체 높이
+            const viewportHeight = window.innerHeight;
+
+            parallaxSections.forEach((section, index) => {
+                const speed = (index + 1) * 0.2; // 섹션별 속도
+                let offset = scrollPosition * speed; // 스크롤 위치에 따른 이동 값 계산
+
+                // 각 섹션의 배경 이동
+                section.style.backgroundPosition = `center ${-offset}px`; 
+
+                // 마지막 섹션의 배경 이미지가 화면 끝에서 중앙에 위치하도록
+                if (index === parallaxSections.length - 1) {
+                    const sectionHeight = section.offsetHeight;
+                    const scrollThreshold = sectionHeight - viewportHeight;
+
+                    // 마지막 섹션에서 스크롤 끝까지 내려갔을 때 배경 이미지가 중앙에 위치하도록 처리
+                    if (scrollPosition >= scrollThreshold) {
+                        section.style.backgroundPosition = 'center center';
+                    } else {
+                        // 마지막 섹션은 다른 섹션처럼 계속 Parallax 효과 적용
+                        section.style.backgroundPosition = `center ${-offset}px`;
+                    }
+                }
+            });
+        }
+
+        // 스크롤 이벤트 최적화
+        window.addEventListener('scroll', function() {
+            requestAnimationFrame(updateParallax);
+        });
+
+        // 페이지 로딩 시 초기 배경 업데이트
+        updateParallax();
+    </script>
 </body>
 
 </html>
