@@ -334,12 +334,6 @@
                 /* 이미지가 슬라이드에 맞게 조정 */
             }
 
-            .prev,
-            .next {
-                display: none;
-                /* 모바일에서는 버튼 숨기기 */
-            }
-
             .container-main p {
                 font-size: 4em;
             }
@@ -835,9 +829,9 @@
         document.querySelector('.mobile').addEventListener('touchend', (e) => {
             const endTouch = e.changedTouches[0].clientX;
             const diff = startTouch - endTouch;
-            if (diff > 50) {
+            if (diff > 100) {
                 moveSlide(1); // 왼쪽으로 스와이프
-            } else if (diff < -50) {
+            } else if (diff < -100) {
                 moveSlide(-1); // 오른쪽으로 스와이프
             }
         });
