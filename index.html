@@ -192,6 +192,7 @@
         .table-container table {
             width: 90%;
             border-collapse: collapse;
+            font-size: 13px;
         }
 
         .table-container th,
@@ -260,7 +261,7 @@
         .container-main p {
             font-size: 4em;
         }
-        
+
         .popup-container {
             width: 90%;
         }
@@ -303,8 +304,8 @@
                 <table>
                     <tr>
                         <th></th>
-                        <th>TITLE</th>
-                        <th>ROLE</th>
+                        <th>Title</th>
+                        <th>Role</th>
                     </tr>
                     <tr>
                         <td>2023</td>
@@ -653,6 +654,14 @@
         // 팝업 닫기 버튼 클릭 시 팝업 닫기
         document.getElementById('closePopup').addEventListener('click', function() {
             document.getElementById('popupOverlay').style.display = 'none'; // 팝업 닫기
+        });
+
+        // 페이지 로드 후 또는 특정 조건에서 비디오를 자동 재생
+        window.addEventListener('load', () => {
+            const video = document.querySelector('.video-container');
+            if (video) {
+                video.play(); // 비디오를 자동으로 재생
+            }
         });
 
     </script>
