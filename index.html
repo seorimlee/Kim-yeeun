@@ -794,9 +794,13 @@
     </script>
     <script>
         let slideIndex = 0; // 현재 슬라이드 인덱스
+        let isAnimating = false; // 슬라이드 이동 중인지 상태 플래그
 
         // 슬라이드 이동 함수
         function moveSlide(offset, isMobile = false) {
+            if (isAnimating) return; // 애니메이션 중에는 추가 동작 금지
+            isAnimating = true;
+
             const slides = document.querySelector(isMobile ? '.mobile' : '.pc');
             const totalSlides = document.querySelectorAll(`${isMobile ? '.mobile' : '.pc'} .slide-item`).length;
             const slideWidth = isMobile ? 100 : 50; // 모바일: 100%, PC: 50%
@@ -808,28 +812,18 @@
             slides.style.transition = 'transform 0.5s ease'; // 부드러운 이동
             slides.style.transform = `translateX(-${slideIndex * slideWidth}%)`;
 
-            // 마지막에서 첫 번째로 이동 시 자연스럽게 처리
-            if (offset > 0 && slideIndex === 0) {
-                setTimeout(() => {
-                    slides.style.transition = 'none'; // 애니메이션 제거
-                    slides.style.transform = 'translateX(0%)'; // 첫 번째 슬라이드로 이동
-                }, 500);
-            }
-
-            // 첫 번째에서 마지막으로 이동 시 자연스럽게 처리
-            if (offset < 0 && slideIndex === totalSlides - 1) {
-                setTimeout(() => {
-                    slides.style.transition = 'none'; // 애니메이션 제거
-                    slides.style.transform = `translateX(-${(totalSlides - 1) * slideWidth}%)`;
-                }, 500);
-            }
+            // 애니메이션이 끝난 후 상태 초기화
+            setTimeout(() => {
+                isAnimating = false; // 애니메이션 종료
+            }, 500); // transition 시간과 동일
         }
 
         // 모바일 슬라이드 터치 스와이프
-        let startTouchX = 0;
-        let isSwiping = false; // 스와이프 상태 플래그
+        let startTouchX = 0; // 터치 시작 X 좌표
+        let isSwiping = false; // 스와이프 중인지 상태 플래그
 
         document.querySelector('.mobile').addEventListener('touchstart', (e) => {
+            if (isAnimating) return; // 애니메이션 중이면 스와이프 금지
             startTouchX = e.touches[0].clientX; // 터치 시작 위치 저장
             isSwiping = true; // 스와이프 시작
         });
@@ -842,11 +836,11 @@
 
             // 스와이프 방향 감지 및 이동
             if (diffX > 50) {
-                isSwiping = false; // 스와이프 중복 방지
-                moveSlide(1, true); // 오른쪽에서 왼쪽으로 스와이프 (다음 슬라이드로 이동)
+                isSwiping = false; // 스와이프 완료 후 중복 방지
+                moveSlide(1, true); // 오른쪽에서 왼쪽으로 스와이프 (다음 슬라이드)
             } else if (diffX < -50) {
-                isSwiping = false; // 스와이프 중복 방지
-                moveSlide(-1, true); // 왼쪽에서 오른쪽으로 스와이프 (이전 슬라이드로 이동)
+                isSwiping = false; // 스와이프 완료 후 중복 방지
+                moveSlide(-1, true); // 왼쪽에서 오른쪽으로 스와이프 (이전 슬라이드)
             }
         });
 
