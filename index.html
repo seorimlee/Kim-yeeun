@@ -260,6 +260,10 @@
         .container-main p {
             font-size: 4em;
         }
+        
+        .popup-container {
+            width: 90%;
+        }
 
     </style>
 </head>
@@ -586,7 +590,7 @@
                 let offset = (scrollPosition / sectionHeight) * 100; // 배경 이동 범위 확대 (200%까지)
 
                 // 배경 이미지 이동 속도 조정 (모바일에서는 빠르게 이동)
-                offset = Math.min(Math.max(offset, 20), 60); // 0% ~ 200% 사이로 배경 이미지 이동 (더 많이 이동)
+                offset = Math.min(Math.max(offset, 20), 100); // 0% ~ 200% 사이로 배경 이미지 이동 (더 많이 이동)
 
                 // 섹션의 배경 이동
                 if (section.classList.contains('section3')) {
@@ -600,7 +604,7 @@
                         const thirdSectionHeight = sectionHeight;
 
                         const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
-                        const offset = scrollRatio * 60; // 0%에서 200%로 배경 이미지 이동
+                        const offset = scrollRatio * 100; // 0%에서 200%로 배경 이미지 이동
 
                         section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`;
                     }
@@ -620,7 +624,7 @@
                         const thirdSectionHeight = sectionHeight;
 
                         const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
-                        const offset = scrollRatio * 80; // 0%에서 200%로 배경 이미지 이동
+                        const offset = scrollRatio * 100; // 0%에서 200%로 배경 이미지 이동
 
                         section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`;
                     }
