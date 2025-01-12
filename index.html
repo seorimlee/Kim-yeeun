@@ -318,7 +318,7 @@
             .slide.pc {
                 display: none;
             }
-            
+
             .slide.mobile {
                 display: flex;
                 width: 100%;
@@ -332,6 +332,12 @@
             .slide-item img {
                 width: 100%;
                 /* 이미지가 슬라이드에 맞게 조정 */
+            }
+
+            .prev,
+            .next {
+                display: none;
+                /* 모바일에서는 버튼 숨기기 */
             }
 
             .container-main p {
@@ -820,19 +826,20 @@
         }
 
         // 모바일 슬라이드 터치 스와이프
-        let startTouch = 0;
+        let startTouchX = 0;
 
         document.querySelector('.mobile').addEventListener('touchstart', (e) => {
-            startTouch = e.touches[0].clientX;
+            startTouchX = e.touches[0].clientX; // 터치 시작 위치 저장
         });
 
         document.querySelector('.mobile').addEventListener('touchend', (e) => {
-            const endTouch = e.changedTouches[0].clientX;
-            const diff = startTouch - endTouch;
-            if (diff > 100) {
-                moveSlide(1); // 왼쪽으로 스와이프
-            } else if (diff < -100) {
-                moveSlide(-1); // 오른쪽으로 스와이프
+            const endTouchX = e.changedTouches[0].clientX; // 터치 끝 위치
+            const diffX = startTouchX - endTouchX;
+
+            if (diffX > 50) {
+                moveSlide(1, true); // 오른쪽으로 스와이프 (다음 슬라이드)
+            } else if (diffX < -50) {
+                moveSlide(-1, true); // 왼쪽으로 스와이프 (이전 슬라이드)
             }
         });
 
