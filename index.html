@@ -185,149 +185,119 @@
     </div>
 
     <script>
-        function parallaxIt() {
-            var $fwindow = $(window);
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            var $backgrounds = [];
+    function parallaxIt() {
+        const $backgrounds = [];
+        const $fwindow = $(window);
 
-            // Set up background elements
-            $('[data-type="background"]').each(function() {
-                var $backgroundObj = $(this);
-                $backgroundObj.__speed = ($backgroundObj.data('speed') || 1);
-                $backgroundObj.__fgOffset = $backgroundObj.offset().top;
-                $backgrounds.push($backgroundObj);
-            });
+        // Set up background elements
+        $('[data-type="background"]').each(function () {
+            const $backgroundObj = $(this);
+            $backgroundObj.__speed = ($backgroundObj.data('speed') || 1);
+            $backgroundObj.__fgOffset = $backgroundObj.offset().top;
+            $backgrounds.push($backgroundObj);
+        });
 
-            // Update background positions
-            function updatePositions() {
-                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        // Update background positions
+        function updatePositions() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-                // Update background positions (images)
-                $backgrounds.forEach(function($backgroundObj) {
-                    var yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
-                    $backgroundObj.css({
-                        backgroundPosition: 'center ' + (yPos * 1) + 'px', // 배경이 더 빠르게 움직이도록 설정
-                    });
+            $backgrounds.forEach(function ($backgroundObj) {
+                const yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
+                $backgroundObj.css({
+                    backgroundPosition: `center ${yPos}px`,
                 });
-            }
-
-            // Scroll event listener
-            $fwindow.on('scroll resize', function() {
-                window.requestAnimationFrame(updatePositions);
             });
-
-            // Initialize on load
-            $fwindow.trigger('scroll');
         }
 
-        parallaxIt();
-
-        window.addEventListener("scroll", function() {
-            const sections = document.querySelectorAll(".container section .image");
-
-            sections.forEach(function(section) {
-                let scrollPosition = window.scrollY;
-                let speed = 1; // 배경 이동 속도
-
-                // 초기 위치를 -20px로 조정
-                section.style.backgroundPosition = "center " + ((scrollPosition * speed) - 200) + "px";
-            });
+        // Scroll event listener
+        $fwindow.on('scroll resize', function () {
+            window.requestAnimationFrame(updatePositions);
         });
 
+        // Initialize on load
+        $fwindow.trigger('scroll');
+    }
 
+    parallaxIt();
 
+    // 통합된 스크롤 이벤트 핸들러
+    window.addEventListener("scroll", function () {
+        const sections = document.querySelectorAll(".container section .image");
 
-        // 모바일에서는 스크롤 이벤트 최적화를 위해 requestAnimationFrame을 사용
-        let scrollTimeout;
-        window.addEventListener("scroll", function() {
-            const sections = document.querySelectorAll(".container section .image");
+        sections.forEach(function (section, index) {
+            const scrollPosition = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const sectionTop = section.getBoundingClientRect().top + scrollPosition;
+            const sectionCenter = sectionTop + section.offsetHeight / 2;
+            const targetScrollPosition = sectionCenter - viewportHeight / 2;
 
-            sections.forEach(function(section, index) {
-                let scrollPosition = window.scrollY; // 현재 스크롤 위치
-                let viewportHeight = window.innerHeight; // 뷰포트 높이
-                let sectionTop = section.getBoundingClientRect().top + scrollPosition; // 섹션의 문서 상단 기준 위치
-                let sectionCenter = sectionTop + section.offsetHeight / 2; // 섹션의 중앙 위치
-                let targetScrollPosition = sectionCenter - viewportHeight / 2; // 섹션 중앙이 화면 중앙에 올 때의 스크롤 값
-
-                if (index === 0) {
-                    // 첫 번째 섹션에 대해 중앙 위치의 background-position 값 계산
-                    let offset = 877 - (targetScrollPosition * 0.5); // targetScrollPosition에서 원하는 값으로 보정
-                    section.style.backgroundPosition = `center ${offset}px`;
-                } else {
-                    // 다른 섹션은 일반적인 스크롤 계산
-                    let speed = 1; // 배경 이동 속도
-                    section.style.backgroundPosition = `center ${(scrollPosition * speed)}px`;
-                }
-            });
+            if (index === 0) {
+                const offset = 877 - (targetScrollPosition * 0.5); // 첫 섹션 보정
+                section.style.backgroundPosition = `center ${offset}px`;
+            } else {
+                const speed = 1; // 일반 배경 이동 속도
+                section.style.backgroundPosition = `center ${(scrollPosition * speed)}px`;
+            }
         });
+    });
 
-    </script>
+    // Typed.js 효과
+    const typedTextSpan = document.querySelector(".typed-text");
+    const cursorSpan = document.querySelector(".cursor");
 
-    <script>
-        const typedTextSpan = document.querySelector(".typed-text");
-        const cursorSpan = document.querySelector(".cursor");
+    const textArray = ["KIM YE EUN", "KIM YE EUN", "KIM YE EUN", "KIM YE EUN"];
+    const typingDelay = 200;
+    const erasingDelay = 100;
+    const newTextDelay = 1000; 
+    let textArrayIndex = 0;
+    let charIndex = 0;
 
-        const textArray = ["KIM YE EUN", "KIM YE EUN", "KIM YE EUN", "KIM YE EUN"];
-        const typingDelay = 200;
-        const erasingDelay = 100;
-        const newTextDelay = 1000; // Delay between current and next text
-        let textArrayIndex = 0;
-        let charIndex = 0;
-
-        function type() {
-            if (charIndex < textArray[textArrayIndex].length) {
-                if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(type, typingDelay);
-            } else {
-                cursorSpan.classList.remove("typing");
-                setTimeout(erase, newTextDelay);
-            }
+    function type() {
+        if (charIndex < textArray[textArrayIndex].length) {
+            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+            typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            setTimeout(erase, newTextDelay);
         }
+    }
 
-        function erase() {
-            if (charIndex > 0) {
-                if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(erase, erasingDelay);
-            } else {
-                cursorSpan.classList.remove("typing");
-                textArrayIndex++;
-                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
-                setTimeout(type, typingDelay + 1100);
-            }
+    function erase() {
+        if (charIndex > 0) {
+            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+            typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(erase, erasingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            textArrayIndex++;
+            if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+            setTimeout(type, typingDelay + 1100);
         }
+    }
 
-        document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
-            if (textArray.length) setTimeout(type, newTextDelay + 250);
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
 
-    </script>
+    // 섹션 내용 토글
+    function toggleContent() {
+        const content = document.querySelector('.section-content');
+        content.style.display = content.style.display === "none" ? "block" : "none";
+    }
 
-    <script>
-        function toggleContent() {
-            const content = document.querySelector('.section-content');
-            if (content.style.display === "none") {
-                content.style.display = "block";
-            } else {
-                content.style.display = "none";
-            }
-        }
+    // 플립 효과
+    function toggleFlip() {
+        const container = document.querySelector('.flip-container');
+        container.classList.toggle('flipped');
+    }
 
-    </script>
+    // 터치 디바이스에서 플립 활성화
+    document.querySelector('.flip-container').addEventListener('touchstart', toggleFlip);
+</script>
 
-    <script>
-        function toggleFlip() {
-            const container = document.querySelector('.flip-container');
-            container.classList.toggle('flipped');
-        }
-
-        // Enable flip effect on touch devices
-        document.querySelector('.flip-container').addEventListener('touchstart', toggleFlip);
-
-    </script>
 
 </body>
 
