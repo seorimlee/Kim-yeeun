@@ -3,302 +3,58 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.typekit.net/qyf3oio.css">
-    <link rel="stylesheet" href="layout.css" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <title>Section Background Scroll Effect</title>
+    <style>
+        *, *:after, *:before {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin: 0;
+            background: #fff;
+            color: #000;
+        }
+        .parallax_section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .parallax_section h2 {
+            color: #fff;
+            font-size: 4rem;
+            text-align: center;
+            z-index: 1;
+        }
+        .section1 {
+            background-image: url('section1.jpg');
+        }
+        .section2 {
+            background-image: url('section2.jpg');
+        }
+        .section3 {
+            background-image: url('section3.jpg');
+        }
+    </style>
 </head>
 
 <body>
-    <!--
- Author: Hendry Sadrak
--->
-    <header>
-        <ul>
-            <li>KIM YE EUN</li>
-        </ul>
-        <ul>
-            <li class="category-work">WORK</li>
-            <li class="category-video">VIDEO</li>
-            <li class="category-contact">CONTACT</li>
-        </ul>
-    </header>
-    <main>
-        <div class="container-main">
-            <p><span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
-        </div>
-    </main>
-    <div class="container video">
-        <iframe src="https://www.youtube.com/embed/ZXxEfOmYz7Q?si=gJwTs038VtGT6Ns0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="parallax_section section1">
+        <h2>CSS3 <br> Parallax Effect</h2>
     </div>
-
-
-    <div class="container">
-
-        <section>
-            <div class="image" data-type="background" data-speed="2">
-                <div class="flip-container">
-                    <div class="flipper">
-                        <div class="front">
-                            <div class="stuff" data-type="content">
-                                <button onclick="toggleFlip()">
-                                    <h2>WORKS</h2>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="back section-content">
-                            <button class="close-button" onclick="toggleFlip()">X</button>
-                            <div class="table-container">
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>TITLE</th>
-                                        <th>ROLE</th>
-                                    </tr>
-                                    <tr>
-                                        <td>2023</td>
-                                        <td>콘크리트 유토피아</td>
-                                        <td>동거녀</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023</td>
-                                        <td>엄마의 땅: 그리샤와 숲의 주인</td>
-                                        <td>주연 / 슈라 목소리</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022</td>
-                                        <td>올빼미</td>
-                                        <td>서상궁</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2021</td>
-                                        <td>브로커</td>
-                                        <td>임씨 아내</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2021</td>
-                                        <td>특송</td>
-                                        <td>지선</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2020</td>
-                                        <td>당신은 믿지 않겠지만</td>
-                                        <td>주연 / 봄</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2020</td>
-                                        <td>생각의 여름</td>
-                                        <td>주연 / 현실</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019</td>
-                                        <td>특송</td>
-                                        <td>지선</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019</td>
-                                        <td>타짜 3: 원 아이드 잭</td>
-                                        <td>준이 엄마</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019</td>
-                                        <td>오! 문희</td>
-                                        <td>한재숙</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019</td>
-                                        <td>항거</td>
-                                        <td>권애라</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2019</td>
-                                        <td>어게인</td>
-                                        <td>주연 / 조연주</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018</td>
-                                        <td>너와 극장에서</td>
-                                        <td>주연 / 선미</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2017</td>
-                                        <td>너는 결코 서둘지 말라</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2017</td>
-                                        <td>소공녀</td>
-                                        <td>재경 역</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2017</td>
-                                        <td>호랑이보다 무서운 겨울 손님</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2017</td>
-                                        <td>김군</td>
-                                        <td>조사자</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2017</td>
-                                        <td>군함도</td>
-                                        <td>기생</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2016</td>
-                                        <td>환절기</td>
-                                        <td>지연</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2016</td>
-                                        <td>양치기들</td>
-                                        <td>미진</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>토마: 무녀굴</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="image" data-type="background" data-speed="7"></div>
-            <div class="stuff" data-type="content">
-                <h2>INTERVIEW</h2>
-            </div>
-        </section>
-
-        <section>
-            <div class="image" data-type="background" data-speed="6"></div>
-            <div class="stuff" data-type="content">
-                <h2>INSTAGRAM</h2>
-            </div>
-        </section>
-
+    <div class="parallax_section section2">
+        <h2>CSS3 <br> Parallax Effect</h2>
     </div>
-
-    <script>
-    function parallaxIt() {
-        const $backgrounds = [];
-        const $fwindow = $(window);
-
-        // Set up background elements
-        $('[data-type="background"]').each(function () {
-            const $backgroundObj = $(this);
-            $backgroundObj.__speed = ($backgroundObj.data('speed') || 1);
-            $backgroundObj.__fgOffset = $backgroundObj.offset().top;
-            $backgrounds.push($backgroundObj);
-        });
-
-        // Update background positions
-        function updatePositions() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            $backgrounds.forEach(function ($backgroundObj) {
-                const yPos = -((scrollTop - $backgroundObj.__fgOffset) / $backgroundObj.__speed);
-                $backgroundObj.css({
-                    backgroundPosition: `center ${yPos}px`,
-                });
-            });
-        }
-
-        // Scroll event listener
-        $fwindow.on('scroll resize', function () {
-            window.requestAnimationFrame(updatePositions);
-        });
-
-        // Initialize on load
-        $fwindow.trigger('scroll');
-    }
-
-    parallaxIt();
-
-    // 통합된 스크롤 이벤트 핸들러
-    window.addEventListener("scroll", function () {
-        const sections = document.querySelectorAll(".container section .image");
-
-        sections.forEach(function (section, index) {
-            const scrollPosition = window.scrollY;
-            const viewportHeight = window.innerHeight;
-            const sectionTop = section.getBoundingClientRect().top + scrollPosition;
-            const sectionCenter = sectionTop + section.offsetHeight / 2;
-            const targetScrollPosition = sectionCenter - viewportHeight / 2;
-
-            if (index === 0) {
-                const offset = 877 - (targetScrollPosition * 0.5); // 첫 섹션 보정
-                section.style.backgroundPosition = `center ${offset}px`;
-            } else {
-                const speed = 1; // 일반 배경 이동 속도
-                section.style.backgroundPosition = `center ${(scrollPosition * speed)}px`;
-            }
-        });
-    });
-
-    // Typed.js 효과
-    const typedTextSpan = document.querySelector(".typed-text");
-    const cursorSpan = document.querySelector(".cursor");
-
-    const textArray = ["KIM YE EUN", "KIM YE EUN", "KIM YE EUN", "KIM YE EUN"];
-    const typingDelay = 200;
-    const erasingDelay = 100;
-    const newTextDelay = 1000; 
-    let textArrayIndex = 0;
-    let charIndex = 0;
-
-    function type() {
-        if (charIndex < textArray[textArrayIndex].length) {
-            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-            typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-            charIndex++;
-            setTimeout(type, typingDelay);
-        } else {
-            cursorSpan.classList.remove("typing");
-            setTimeout(erase, newTextDelay);
-        }
-    }
-
-    function erase() {
-        if (charIndex > 0) {
-            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-            typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-            charIndex--;
-            setTimeout(erase, erasingDelay);
-        } else {
-            cursorSpan.classList.remove("typing");
-            textArrayIndex++;
-            if (textArrayIndex >= textArray.length) textArrayIndex = 0;
-            setTimeout(type, typingDelay + 1100);
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        if (textArray.length) setTimeout(type, newTextDelay + 250);
-    });
-
-    // 섹션 내용 토글
-    function toggleContent() {
-        const content = document.querySelector('.section-content');
-        content.style.display = content.style.display === "none" ? "block" : "none";
-    }
-
-    // 플립 효과
-    function toggleFlip() {
-        const container = document.querySelector('.flip-container');
-        container.classList.toggle('flipped');
-    }
-
-    // 터치 디바이스에서 플립 활성화
-    document.querySelector('.flip-container').addEventListener('touchstart', toggleFlip);
-</script>
-
-
+    <div class="parallax_section section3">
+        <h2>CSS3 <br> Parallax Effect</h2>
+    </div>
 </body>
 
 </html>
