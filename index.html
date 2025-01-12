@@ -24,7 +24,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 100vh; /* 화면 전체 높이로 설정 */
             overflow: hidden;
             background-size: cover;
             background-position: center;
@@ -51,12 +51,19 @@
             background-image: url('section3.jpg');
         }
 
+        /* 모바일에서의 추가 최적화 */
+        @media (max-width: 768px) {
+            .parallax_section h2 {
+                font-size: 2rem; /* 모바일에서는 텍스트 크기 조정 */
+            }
+        }
+
     </style>
 </head>
 
 <body>
     <div class="parallax_section section1">
-        <h2>CSS4 <br> Parallax Effect</h2>
+        <h2>CSS1 <br> Parallax Effect</h2>
     </div>
     <div class="parallax_section section2">
         <h2>CSS3 <br> Parallax Effect</h2>
