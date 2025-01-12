@@ -220,6 +220,7 @@
             header>ul>li {
                 font-size: 20px;
             }
+
             header>ul:nth-of-type(2)>li {
                 font-size: 30px;
             }
@@ -246,11 +247,11 @@
             }
 
             .section2 {
-                min-height: 90vh;
+                min-height: 100vh;
             }
 
             .section3 {
-                min-height: 90vh;
+                min-height: 100vh;
             }
 
         }
@@ -271,7 +272,7 @@
         <ul class="category">
             <li class="category-video">VIDEO</li>
             <li class="category-work">WORK</li>
-            <li class="category-work">INTERVIEW</li>
+            <li class="category-interview">INTERVIEW</li>
             <li class="category-contact">CONTACT</li>
         </ul>
     </header>
@@ -411,7 +412,9 @@
         </div>
     </div>
     <div class="parallax_section section4">
-        <a href="https://m.entertain.naver.com/article/312/0000592286"><h2>INTERVIEW</h2></a>
+        <a href="https://m.entertain.naver.com/article/312/0000592286">
+            <h2>INTERVIEW</h2>
+        </a>
     </div>
     <div class="parallax_section section3">
         <a href="https://www.instagram.com/kimyaeeun/">
@@ -420,6 +423,40 @@
     </div>
 
     <script>
+        // 각 카테고리 클릭 시 해당 섹션으로 이동
+        document.querySelector('.category-video').addEventListener('click', () => {
+            const videoContainer = document.querySelector('.video-container');
+            window.scrollTo({
+                top: videoContainer.offsetTop,
+                behavior: 'smooth' // 부드러운 스크롤 효과
+            });
+        });
+
+        document.querySelector('.category-work').addEventListener('click', () => {
+            const section2 = document.querySelector('.section2');
+            window.scrollTo({
+                top: section2.offsetTop,
+                behavior: 'smooth' // 부드러운 스크롤 효과
+            });
+        });
+
+        document.querySelector('.category-interview').addEventListener('click', () => {
+            const section4 = document.querySelector('.section4');
+            window.scrollTo({
+                top: section4.offsetTop,
+                behavior: 'smooth' // 부드러운 스크롤 효과
+            });
+        });
+
+        document.querySelector('.category-contact').addEventListener('click', () => {
+            const section3 = document.querySelector('.section3');
+            window.scrollTo({
+                top: section3.offsetTop,
+                behavior: 'smooth' // 부드러운 스크롤 효과
+            });
+        });
+
+
         // 폰트 색상
         window.addEventListener('scroll', () => {
             const section2 = document.querySelector('.section2');
