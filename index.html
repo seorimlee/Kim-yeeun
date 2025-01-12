@@ -424,41 +424,56 @@
             const section4 = document.querySelector('.section4');
             const section3 = document.querySelector('.section3');
             const headerItems = document.querySelectorAll('header > ul > li');
-            const headerItemSelect1 = document.querySelectorAll('header > ul:nth-of-type(2) > li:first-child');
             const headerItemSelect2 = document.querySelectorAll('header > ul:nth-of-type(2) > li:nth-of-type(2)');
+            const headerItemSelect1 = document.querySelectorAll('header > ul:nth-of-type(2) > li:first-child');
             const headerItemSelect3 = document.querySelectorAll('header > ul:nth-of-type(2) > li:nth-of-type(3)');
             const headerItemSelect4 = document.querySelectorAll('header > ul:nth-of-type(2) > li:nth-of-type(4)');
 
             const scrollPosition = window.pageYOffset;
 
-            // section2 관련 스타일 변경
-            if (scrollPosition >= section2.offsetTop && scrollPosition < section2.offsetTop + section2.offsetHeight) {
-                headerItems.forEach(item => item.style.color = '#000'); // section2에서만 모든 항목의 폰트 색상을 검정으로 변경
-                headerItemSelect2.forEach(item => item.style.borderBottom = '1px solid'); // section2에서 선택된 항목의 하단 테두리 적용
-            } else {
-                headerItems.forEach(item => item.style.color = ''); // 원래 색상으로 복원
-                headerItemSelect2.forEach(item => item.style.borderBottom = ''); // section2에서만 데코레이션 추가
+            // 모바일에서만 section2에 대한 스타일 적용
+            if (window.innerWidth <= 768) {
+                // section2 관련 스타일 변경
+                if (scrollPosition >= section2.offsetTop && scrollPosition < section2.offsetTop + section2.offsetHeight) {
+                    headerItems.forEach(item => item.style.color = '#000'); // 모바일에서만 section2 진입 시 폰트 색상 변경
+                    headerItemSelect2.forEach(item => item.style.borderBottom = '1px solid'); // section2에서 선택된 항목에 하단 테두리 적용
+                } else {
+                    headerItems.forEach(item => item.style.color = ''); // 원래 색상으로 복원
+                    headerItemSelect2.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+                }
             }
 
-            // video 관련 스타일 변경
-            if (scrollPosition >= video.offsetTop && scrollPosition < video.offsetTop + video.offsetHeight) {
-                headerItemSelect1.forEach(item => item.style.borderBottom = '1px solid #fff');
-            } else {
-                headerItemSelect1.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
-            }
+            // PC에서는 모든 기능 동작
+            if (window.innerWidth > 768) {
+                // section2 관련 스타일 변경
+                if (scrollPosition >= section2.offsetTop && scrollPosition < section2.offsetTop + section2.offsetHeight) {
+                    headerItems.forEach(item => item.style.color = '#000');
+                    headerItemSelect2.forEach(item => item.style.borderBottom = '1px solid');
+                } else {
+                    headerItems.forEach(item => item.style.color = ''); // 원래 색상으로 복원
+                    headerItemSelect2.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+                }
 
-            // interview 관련 스타일 변경
-            if (scrollPosition >= section4.offsetTop && scrollPosition < section4.offsetTop + section4.offsetHeight) {
-                headerItemSelect3.forEach(item => item.style.borderBottom = '1px solid #fff');
-            } else {
-                headerItemSelect3.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
-            }
+                // video 관련 스타일 변경
+                if (scrollPosition >= video.offsetTop && scrollPosition < video.offsetTop + video.offsetHeight) {
+                    headerItemSelect1.forEach(item => item.style.borderBottom = '1px solid #fff');
+                } else {
+                    headerItemSelect1.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+                }
 
-            // instagram 관련 스타일 변경
-            if (scrollPosition >= section3.offsetTop && scrollPosition < section3.offsetTop + section3.offsetHeight) {
-                headerItemSelect4.forEach(item => item.style.borderBottom = '1px solid #fff');
-            } else {
-                headerItemSelect4.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+                // interview 관련 스타일 변경
+                if (scrollPosition >= section4.offsetTop && scrollPosition < section4.offsetTop + section4.offsetHeight) {
+                    headerItemSelect3.forEach(item => item.style.borderBottom = '1px solid #fff');
+                } else {
+                    headerItemSelect3.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+                }
+
+                // instagram 관련 스타일 변경
+                if (scrollPosition >= section3.offsetTop && scrollPosition < section3.offsetTop + section3.offsetHeight) {
+                    headerItemSelect4.forEach(item => item.style.borderBottom = '1px solid #fff');
+                } else {
+                    headerItemSelect4.forEach(item => item.style.borderBottom = ''); // 데코레이션 none으로
+                }
             }
         });
 
