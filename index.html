@@ -15,7 +15,7 @@
             margin: 0;
             background: #fff;
             color: #000;
-            overflow-x: hidden; /* 수평 스크롤 방지 */
+            overflow-x: hidden;
         }
 
         /* 섹션 기본 스타일 */
@@ -24,11 +24,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* 화면 전체 높이로 설정 */
             overflow: hidden;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            height: 100vh; /* 화면 전체 높이로 설정 */
         }
 
         .parallax_section h2 {
@@ -56,6 +56,11 @@
             .parallax_section h2 {
                 font-size: 2rem; /* 모바일에서는 텍스트 크기 조정 */
             }
+
+            .parallax_section {
+                height: auto;
+                min-height: 100vh;
+            }
         }
 
     </style>
@@ -63,7 +68,7 @@
 
 <body>
     <div class="parallax_section section1">
-        <h2>CSS0 <br> Parallax Effect</h2>
+        <h2>CSS5 <br> Parallax Effect</h2>
     </div>
     <div class="parallax_section section2">
         <h2>CSS3 <br> Parallax Effect</h2>
@@ -95,7 +100,7 @@
                 let offset = scrollPosition * speed; // 스크롤 위치에 따른 이동 값 계산
 
                 // 각 섹션의 배경 이동
-                section.style.backgroundPosition = `center ${-offset}px`; 
+                section.style.backgroundPosition = `center ${-offset}px`;
 
                 // 마지막 섹션의 배경 이미지가 화면 끝에서 중앙에 위치하도록
                 if (index === parallaxSections.length - 1) {
@@ -117,12 +122,12 @@
         window.addEventListener('resize', setSectionHeight);
 
         // 스크롤 이벤트 최적화
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             requestAnimationFrame(updateParallax);
         });
 
         // 페이지 로딩 시 초기 설정
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             setSectionHeight();  // 초기 높이 설정
             updateParallax();    // 초기 배경 업데이트
         });
