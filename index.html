@@ -11,11 +11,12 @@
         }
         body {
             font-family: Arial, sans-serif;
-            font-size: 16px;
             margin: 0;
             background: #fff;
             color: #000;
         }
+
+        /* parallax 효과를 위한 섹션 스타일 */
         .parallax_section {
             min-height: 100vh;
             display: flex;
@@ -25,7 +26,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: background-position 0.1s ease-out;
+            background-attachment: fixed; /* 기본 parallax 효과 */
         }
         .parallax_section h2 {
             color: #fff;
@@ -33,6 +34,8 @@
             text-align: center;
             z-index: 1;
         }
+
+        /* 각 섹션의 배경 이미지 설정 */
         .section1 {
             background-image: url('section1.jpg');
         }
@@ -41,6 +44,14 @@
         }
         .section3 {
             background-image: url('section3.jpg');
+        }
+
+        /* 모바일에서 background-attachment를 우회하기 위한 방법 */
+        @media (max-width: 768px) {
+            .parallax_section {
+                background-attachment: scroll; /* 모바일에서 고정되지 않도록 수정 */
+                background-position: center; /* 기본 위치로 설정 */
+            }
         }
     </style>
 </head>
@@ -55,27 +66,6 @@
     <div class="parallax_section section3">
         <h2>CSS3 <br> Parallax Effect</h2>
     </div>
-
-    <script>
-        // 모바일 및 데스크탑에서 작동하는 Parallax 효과
-        const parallaxSections = document.querySelectorAll('.parallax_section');
-
-        function updateParallax() {
-            parallaxSections.forEach(section => {
-                const speed = section.classList.contains('section1') ? 0.2 : 
-                              section.classList.contains('section2') ? 0.4 : 0.6;
-                const offset = window.pageYOffset * speed;
-
-                // 배경 이미지 이동 (y축)
-                section.style.backgroundPosition = `center ${offset}px`;
-            });
-        }
-
-        // 스크롤 이벤트에 따라 배경 이미지 조정
-        window.addEventListener('scroll', updateParallax);
-        // 페이지 로딩 시 초기 업데이트
-        updateParallax();
-    </script>
 </body>
 
 </html>
