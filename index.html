@@ -793,7 +793,7 @@
 
     </script>
     <script>
-        let slideIndex = 0;
+        let slideIndex = 0; // 현재 슬라이드 인덱스
 
         // 슬라이드 이동 함수
         function moveSlide(offset, isMobile = false) {
@@ -827,20 +827,31 @@
 
         // 모바일 슬라이드 터치 스와이프
         let startTouchX = 0;
+        let isSwiping = false; // 스와이프 상태 플래그
 
         document.querySelector('.mobile').addEventListener('touchstart', (e) => {
             startTouchX = e.touches[0].clientX; // 터치 시작 위치 저장
+            isSwiping = true; // 스와이프 시작
         });
 
-        document.querySelector('.mobile').addEventListener('touchend', (e) => {
-            const endTouchX = e.changedTouches[0].clientX; // 터치 끝 위치
-            const diffX = startTouchX - endTouchX;
+        document.querySelector('.mobile').addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
 
+            const currentTouchX = e.touches[0].clientX;
+            const diffX = startTouchX - currentTouchX;
+
+            // 스와이프 방향 감지 및 이동
             if (diffX > 50) {
-                moveSlide(1, true); // 오른쪽으로 스와이프 (다음 슬라이드)
+                isSwiping = false; // 스와이프 중복 방지
+                moveSlide(1, true); // 오른쪽에서 왼쪽으로 스와이프 (다음 슬라이드로 이동)
             } else if (diffX < -50) {
-                moveSlide(-1, true); // 왼쪽으로 스와이프 (이전 슬라이드)
+                isSwiping = false; // 스와이프 중복 방지
+                moveSlide(-1, true); // 왼쪽에서 오른쪽으로 스와이프 (이전 슬라이드로 이동)
             }
+        });
+
+        document.querySelector('.mobile').addEventListener('touchend', () => {
+            isSwiping = false; // 스와이프 종료
         });
 
         // PC 버튼 이벤트
