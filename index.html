@@ -63,14 +63,13 @@
 
         /* 모바일에서의 추가 최적화 */
         @media (max-width: 768px) {
-            .parallax_section h2 {
-                font-size: 2rem;
-                /* 모바일에서는 텍스트 크기 조정 */
+            body {
+            overflow-x: auto; /* 모바일에서 수평 스크롤 문제 해결 */
             }
 
             .parallax_section {
-                height: auto;
-                min-height: 100vh;
+                min-height: auto;
+                height: 100vh; /* 100vh 대신 height를 적용해보세요 */
             }
         }
 
