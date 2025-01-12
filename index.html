@@ -207,8 +207,67 @@
         }
 
 
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 슬라이드 공통 스타일 */
+        .slide {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+
+        .slide.mobile {
+            display: none;
+        }
+
+        @media screen and (min-width: 768px) {
+            .pc {
+                display: flex;
+                width: 100%;
+                /* 2개의 이미지씩 슬라이드 */
+            }
+
+            .slide-item {
+                min-width: 100%;
+                /* 각 이미지가 화면의 50%씩 차지 */
+                display: flex;
+            }
+
+            .slide-item img {
+                width: 50%;
+                /* 이미지가 슬라이드에 맞게 조정 */
+            }
+
+            .prev,
+            .next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 2rem;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+        }
+
+
         /* 모바일에서의 추가 최적화 */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             body {
                 overflow-x: auto;
                 /* 모바일에서 수평 스크롤이 필요할 수 있으므로 수정 */
@@ -219,7 +278,8 @@
             }
 
             header>ul>li {
-                font-size: 20px;
+                font-size: 16px;
+                line-height: 104%;
             }
 
             header>ul:nth-of-type(2)>li {
@@ -255,15 +315,39 @@
                 min-height: 100vh;
             }
 
-        }
+            .slide.pc {
+                display: none;
+            }
+            
+            .slide.mobile {
+                display: flex;
+                width: 100%;
+            }
 
+            .slide-item {
+                min-width: 100%;
+                /* 각 이미지가 화면의 100% 차지 */
+            }
 
-        .container-main p {
-            font-size: 4em;
-        }
+            .slide-item img {
+                width: 100%;
+                /* 이미지가 슬라이드에 맞게 조정 */
+            }
 
-        .popup-container {
-            width: 90%;
+            .prev,
+            .next {
+                display: none;
+                /* 모바일에서는 버튼 숨기기 */
+            }
+
+            .container-main p {
+                font-size: 4em;
+            }
+
+            .popup-container {
+                width: 90%;
+            }
+
         }
 
     </style>
@@ -420,6 +504,49 @@
         <a href="https://m.entertain.naver.com/article/312/0000592286">
             <h2>INTERVIEW</h2>
         </a>
+    </div>
+    <div class="slide-container">
+        <!-- PC 슬라이드 -->
+        <div class="slide pc">
+            <div class="slide-item">
+                <img src="photo-1.jpg" alt="photo 1">
+                <img src="photo-2.jpg" alt="photo 2">
+            </div>
+            <div class="slide-item">
+                <img src="photo-3.jpg" alt="photo 3">
+                <img src="photo-4.jpg" alt="photo 4">
+            </div>
+            <div class="slide-item">
+                <img src="photo-5.jpg" alt="photo 5">
+                <img src="photo-6.jpg" alt="photo 6">
+            </div>
+        </div>
+
+        <!-- 모바일 슬라이드 -->
+        <div class="slide mobile">
+            <div class="slide-item">
+                <img src="photo-1.jpg" alt="photo 1">
+            </div>
+            <div class="slide-item">
+                <img src="photo-2.jpg" alt="photo 2">
+            </div>
+            <div class="slide-item">
+                <img src="photo-3.jpg" alt="photo 3">
+            </div>
+            <div class="slide-item">
+                <img src="photo-4.jpg" alt="photo 4">
+            </div>
+            <div class="slide-item">
+                <img src="photo-5.jpg" alt="photo 5">
+            </div>
+            <div class="slide-item">
+                <img src="photo-6.jpg" alt="photo 6">
+            </div>
+        </div>
+
+        <!-- 네비게이션 버튼 (PC 용) -->
+        <button class="prev">이전</button>
+        <button class="next">다음</button>
     </div>
     <div class="parallax_section section3">
         <a href="https://www.instagram.com/kimyaeeun/">
@@ -663,6 +790,61 @@
                 video.play(); // 비디오를 자동으로 재생
             }
         });
+
+    </script>
+    <script>
+        let slideIndex = 0;
+
+        // PC 슬라이드 이동 함수
+        function moveSlide(offset) {
+            const slides = document.querySelector('.pc');
+            const totalSlides = document.querySelectorAll('.pc .slide-item').length;
+            const slideWidth = 50; // PC에서 한 슬라이드가 차지하는 너비(%)
+
+            // 슬라이드 인덱스 업데이트
+            slideIndex = (slideIndex + offset + totalSlides) % totalSlides;
+
+            // 슬라이드 이동
+            slides.style.transition = 'transform 0.5s ease'; // 부드러운 이동
+            slides.style.transform = `translateX(-${slideIndex * slideWidth}%)`;
+
+            // 마지막에서 첫 번째로 이동 시 자연스럽게 처리
+            if (offset > 0 && slideIndex === 0) {
+                setTimeout(() => {
+                    slides.style.transition = 'none'; // 애니메이션 제거
+                    slides.style.transform = 'translateX(0%)'; // 첫 번째 슬라이드로 이동
+                }, 500); // 이동 애니메이션 시간 후 처리
+            }
+
+            // 첫 번째에서 마지막으로 이동 시 자연스럽게 처리
+            if (offset < 0 && slideIndex === totalSlides - 1) {
+                setTimeout(() => {
+                    slides.style.transition = 'none'; // 애니메이션 제거
+                    slides.style.transform = `translateX(-${(totalSlides - 1) * slideWidth}%)`;
+                }, 500); // 이동 애니메이션 시간 후 처리
+            }
+        }
+
+        // 모바일 슬라이드 터치 스와이프
+        let startTouch = 0;
+
+        document.querySelector('.mobile').addEventListener('touchstart', (e) => {
+            startTouch = e.touches[0].clientX;
+        });
+
+        document.querySelector('.mobile').addEventListener('touchend', (e) => {
+            const endTouch = e.changedTouches[0].clientX;
+            const diff = startTouch - endTouch;
+            if (diff > 50) {
+                moveSlide(1); // 왼쪽으로 스와이프
+            } else if (diff < -50) {
+                moveSlide(-1); // 오른쪽으로 스와이프
+            }
+        });
+
+        // PC 버튼 이벤트
+        document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
+        document.querySelector('.next').addEventListener('click', () => moveSlide(1));
 
     </script>
 </body>
