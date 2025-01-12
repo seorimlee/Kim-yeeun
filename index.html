@@ -63,7 +63,7 @@
 
 <body>
     <div class="parallax_section section1">
-        <h2>CSS1 <br> Parallax Effect</h2>
+        <h2>CSS3 <br> Parallax Effect</h2>
     </div>
     <div class="parallax_section section2">
         <h2>CSS3 <br> Parallax Effect</h2>
@@ -73,6 +73,16 @@
     </div>
 
     <script>
+        // 화면 크기에 따라 섹션의 높이를 설정
+        function setSectionHeight() {
+            const sections = document.querySelectorAll('.parallax_section');
+            const viewportHeight = window.innerHeight;
+
+            sections.forEach(section => {
+                section.style.height = `${viewportHeight}px`; // 동적으로 각 섹션의 높이를 설정
+            });
+        }
+
         function updateParallax() {
             const parallaxSections = document.querySelectorAll('.parallax_section');
             const scrollPosition = window.pageYOffset;
@@ -103,13 +113,19 @@
             });
         }
 
+        // 화면 리사이즈나 페이지 로딩 시 섹션 높이 재설정
+        window.addEventListener('resize', setSectionHeight);
+
         // 스크롤 이벤트 최적화
         window.addEventListener('scroll', function() {
             requestAnimationFrame(updateParallax);
         });
 
-        // 페이지 로딩 시 초기 배경 업데이트
-        updateParallax();
+        // 페이지 로딩 시 초기 설정
+        window.addEventListener('load', function() {
+            setSectionHeight();  // 초기 높이 설정
+            updateParallax();    // 초기 배경 업데이트
+        });
     </script>
 </body>
 
