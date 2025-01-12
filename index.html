@@ -230,7 +230,7 @@
                 let speed = 1; // 배경 이동 속도
 
                 // 초기 위치를 -20px로 조정
-                section.style.backgroundPosition = "center " + ((scrollPosition * speed) - 200) + "px";
+                section.style.backgroundPosition = "center " + ((scrollPosition * speed) + 200) + "px";
             });
         });
 
@@ -255,7 +255,7 @@
                     section.style.backgroundPosition = `center ${offset}px`;
                 } else {
                     // 다른 섹션은 일반적인 스크롤 계산
-                    let speed = 0.5; // 배경 이동 속도
+                    let speed = 1; // 배경 이동 속도
                     section.style.backgroundPosition = `center ${(scrollPosition * speed)}px`;
                 }
             });
