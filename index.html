@@ -18,6 +18,45 @@
             background: #fff;
             color: #000;
             overflow-x: hidden;
+            background-color: #000;
+        }
+
+        /* 헤더 */
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            z-index: 9999;
+        }
+
+        header>ul {
+            width: 50%;
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            color: #fff;
+        }
+
+        header>ul:nth-child(1) {
+            justify-content: flex-start;
+            padding-left: 2%;
+        }
+
+        /* 비디오 */
+        .video-container {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* 비디오가 inline-block을 피하도록 설정 */
         }
 
         /* 섹션 기본 스타일 */
@@ -30,7 +69,8 @@
             background-size: cover !important;
             background-position: center;
             background-repeat: no-repeat;
-            min-height: 100vh; /* 화면 높이 맞춤 */
+            min-height: 100vh;
+            /* 화면 높이 맞춤 */
             transition: background-position 0.1s ease-out;
         }
 
@@ -51,39 +91,130 @@
         }
 
         .section3 {
-            background-image: url('section1.jpg');
+            background-image: url('section3.jpg');
+        }
+        
+        .container-main p {
+            font-size: 10em;
+            padding: 0.5rem;
+            font-weight: bold;
+            letter-spacing: -0.3rem;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .container-main p span.typed-text {
+            font-weight: normal;
+            color: #fff;
+        }
+
+        .container-main p span.cursor {
+            display: inline-block;
+            background-color: #fff;
+            margin-left: 0.1rem;
+            width: 3px;
+            height: 1em;
+            animation: blink 1s infinite;
+        }
+
+        .container-main p span.cursor.typing {
+            animation: none;
+        }
+
+        @keyframes blink {
+            0% {
+                background-color: #fff;
+            }
+
+            49% {
+                background-color: #fff;
+            }
+
+            50% {
+                background-color: transparent;
+            }
+
+            99% {
+                background-color: transparent;
+            }
+
+            100% {
+                background-color: #fff;
+            }
         }
 
         /* 모바일에서의 추가 최적화 */
         @media (max-width: 768px) {
             body {
-                overflow-x: auto; /* 모바일에서 수평 스크롤이 필요할 수 있으므로 수정 */
+                overflow-x: auto;
+                /* 모바일에서 수평 스크롤이 필요할 수 있으므로 수정 */
+            }
+
+            header>ul {
+                flex-direction: column;
+            }
+
+            header>ul:nth-child(2) {
+                margin-right: 2%;
+            }
+
+            header>ul:nth-child(2)>li {
+                text-align: right;
             }
 
             .parallax_section h2 {
-                font-size: 2rem; /* 모바일에서 텍스트 크기 조정 */
+                font-size: 2rem;
+                /* 모바일에서 텍스트 크기 조정 */
             }
 
             .parallax_section {
                 height: auto;
             }
+
             .section1 {
                 min-height: 100vh;
             }
+
             .section2 {
-                min-height: 40vh;
+                min-height: 55vh;
             }
+
             .section3 {
-                min-height: 40vh;
+                min-height: 55vh;
             }
         }
+
+
+        .container-main p {font-size: 4em;}
 
     </style>
 </head>
 
 <body>
+    <header>
+        <ul>
+            <li>KIM YE EUN</li>
+        </ul>
+        <ul>
+            <li class="category-work">WORK</li>
+            <li class="category-video">VIDEO</li>
+            <li class="category-contact">CONTACT</li>
+        </ul>
+    </header>
     <div class="parallax_section section1">
-        <h2>CSS3 <br> Parallax Effect</h2>
+        <main>
+            <div class="container-main">
+                <p><span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
+            </div>
+        </main>
+    </div>
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="yaeeun-video2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
     <div class="parallax_section section2">
         <h2>CSS3 <br> Parallax Effect</h2>
@@ -93,6 +224,47 @@
     </div>
 
     <script>
+        // Typed.js 효과
+        const typedTextSpan = document.querySelector(".typed-text");
+        const cursorSpan = document.querySelector(".cursor");
+
+        const textArray = ["KIM YE EUN", "KIM YE EUN", "KIM YE EUN", "KIM YE EUN"];
+        const typingDelay = 200;
+        const erasingDelay = 100;
+        const newTextDelay = 1000;
+        let textArrayIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else {
+                cursorSpan.classList.remove("typing");
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                cursorSpan.classList.remove("typing");
+                textArrayIndex++;
+                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, typingDelay + 1100);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (textArray.length) setTimeout(type, newTextDelay + 250);
+        });
+
         // 모바일에서의 100vh 높이 문제 해결을 위해 JS로 vh 값 적용
         const setVhUnit = () => {
             const vh = window.innerHeight * 0.01;
@@ -110,13 +282,13 @@
 
             parallaxSections.forEach((section, index) => {
                 const sectionHeight = section.offsetHeight; // 섹션의 실제 높이
-                const speed = (index + 1) * 0.2; // 섹션 별 배경 속도
+                const speed = (index + 2) * 0.2; // 섹션 별 배경 속도
                 let offset = (scrollPosition / sectionHeight) * 100; // 백분율로 이동값 계산 (0%에서 100%)
 
                 // 배경 이미지의 이동을 0%에서 100%로 제한
-                offset = Math.min(Math.max(offset, 0), 100);  // 0% ~ 100% 사이로 제한
+                offset = Math.min(Math.max(offset, 20), 90); // 0% ~ 100% 사이로 제한
 
-                if (section.classList.contains('section3')) {  // 세 번째 섹션
+                if (section.classList.contains('section3')) { // 세 번째 섹션
                     const secondSection = document.querySelector('.section2');
                     const secondSectionTop = secondSection.offsetTop;
                     const thirdSectionTop = section.offsetTop;
@@ -131,7 +303,7 @@
 
                         // 배경 이미지가 끝까지 이동하도록 비율로 계산
                         const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
-                        const offset = scrollRatio * 100;  // 0%에서 100%로 배경 이미지 이동
+                        const offset = scrollRatio * 100; // 0%에서 100%로 배경 이미지 이동
 
                         section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`; // 0%에서 100%로 배경 이미지 이동
                     }
@@ -139,6 +311,27 @@
                     // 첫 번째, 두 번째 섹션의 배경 이미지 이동
                     section.style.backgroundPosition = `center ${offset}%`; // 0%에서 100%로 배경 이미지 이동
                 }
+                
+                if (section.classList.contains('section2')) { // 세 번째 섹션
+                    const secondSection = document.querySelector('.video-container');
+                    const secondSectionTop = secondSection.offsetTop;
+                    const thirdSectionTop = section.offsetTop;
+
+                    // 두 번째 섹션이 시작되면 세 번째 섹션의 배경이 이동하도록 처리
+                    if (scrollPosition < secondSectionTop) {
+                        section.style.backgroundPosition = `center -20%`; // 두 번째 섹션 시작 전 배경 고정
+                    } else {
+                        // 두 번째 섹션이 시작되면 세 번째 섹션의 배경 이미지가 이동
+                        const scrollFromSecondSection = scrollPosition - secondSectionTop; // 두 번째 섹션 이후 스크롤
+                        const thirdSectionHeight = sectionHeight; // 세 번째 섹션의 높이
+
+                        // 배경 이미지가 끝까지 이동하도록 비율로 계산
+                        const scrollRatio = scrollFromSecondSection / thirdSectionHeight;
+                        const offset = scrollRatio * 100; // 0%에서 100%로 배경 이미지 이동
+
+                        section.style.backgroundPosition = `center ${Math.min(offset, 100)}%`; // 0%에서 100%로 배경 이미지 이동
+                    }
+                } 
             });
         }
 
@@ -149,6 +342,7 @@
 
         // 페이지 로딩 시 초기 배경 업데이트
         updateParallax();
+
     </script>
 </body>
 
