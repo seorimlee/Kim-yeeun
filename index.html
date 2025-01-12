@@ -795,11 +795,11 @@
     <script>
         let slideIndex = 0;
 
-        // PC 슬라이드 이동 함수
-        function moveSlide(offset) {
-            const slides = document.querySelector('.pc');
-            const totalSlides = document.querySelectorAll('.pc .slide-item').length;
-            const slideWidth = 50; // PC에서 한 슬라이드가 차지하는 너비(%)
+        // 슬라이드 이동 함수
+        function moveSlide(offset, isMobile = false) {
+            const slides = document.querySelector(isMobile ? '.mobile' : '.pc');
+            const totalSlides = document.querySelectorAll(`${isMobile ? '.mobile' : '.pc'} .slide-item`).length;
+            const slideWidth = isMobile ? 100 : 50; // 모바일: 100%, PC: 50%
 
             // 슬라이드 인덱스 업데이트
             slideIndex = (slideIndex + offset + totalSlides) % totalSlides;
@@ -813,7 +813,7 @@
                 setTimeout(() => {
                     slides.style.transition = 'none'; // 애니메이션 제거
                     slides.style.transform = 'translateX(0%)'; // 첫 번째 슬라이드로 이동
-                }, 500); // 이동 애니메이션 시간 후 처리
+                }, 500);
             }
 
             // 첫 번째에서 마지막으로 이동 시 자연스럽게 처리
@@ -821,7 +821,7 @@
                 setTimeout(() => {
                     slides.style.transition = 'none'; // 애니메이션 제거
                     slides.style.transform = `translateX(-${(totalSlides - 1) * slideWidth}%)`;
-                }, 500); // 이동 애니메이션 시간 후 처리
+                }, 500);
             }
         }
 
