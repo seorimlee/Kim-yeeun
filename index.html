@@ -51,6 +51,8 @@
         /* 비디오 */
         .video-container {
             width: 100%;
+            max-width: 3000px;
+            margin: 0 auto;
             height: auto;
             overflow: hidden;
             position: relative;
@@ -61,6 +63,7 @@
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
             /* 비디오가 inline-block을 피하도록 설정 */
         }
 
@@ -839,11 +842,14 @@
 
         // 페이지 로드 후 또는 특정 조건에서 비디오를 자동 재생
         window.addEventListener('load', () => {
-            const video = document.querySelector('.video-container');
+            const video = document.querySelector('.video-element');
             if (video) {
-                video.play(); // 비디오를 자동으로 재생
+                video.play().catch(error => {
+                    console.error('Video autoplay failed:', error);
+                });
             }
         });
+
 
         //section5 이미지효과
         document.addEventListener('DOMContentLoaded', () => {
