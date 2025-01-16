@@ -14,6 +14,7 @@
 
         a {
             text-decoration: none;
+            color: inherit;
         }
 
         body {
@@ -96,6 +97,7 @@
 
         .section3 {
             background-image: url('section3.jpg');
+            flex-direction: column;
         }
 
         .container-main p {
@@ -265,6 +267,75 @@
             }
         }
 
+        /*photo*/
+        .section5 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 100px;
+        }
+
+        .section5 img {
+            width: 33%;
+            opacity: 0;
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            transition-delay: var(--delay, 0s);
+            margin-bottom: 0.5%;
+            cursor: pointer;
+        }
+        
+        .section5 img:hover {box-shadow: inset 5px 5px 5em 5px rgba(0,0,0,0.6);}
+        
+        .popup-section5 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-section5 img{
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .hidden {display: none;}
+        
+        /*press*/
+        .section6 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 100px;
+        }
+
+        .section6 img {
+            width: 45%;
+            opacity: 0;
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            transition-delay: var(--delay, 0s);
+            margin-bottom: 0.5%;
+        }
+
+        img.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /*footer*/
+        .selection7 {
+            height: 20px;
+            display: flex
+        ;
+            align-items: center;
+        }
 
         /* 모바일에서의 추가 최적화 */
         @media (max-width: 767px) {
@@ -500,58 +571,41 @@
             </div>
         </div>
     </div>
+    <div class="section5">
+        <img src="photo-1.jpg">
+        <img src="photo-2.jpg">
+        <img src="photo-3.jpg">
+        <img src="photo-4.jpg">
+        <img src="photo-5.jpg">
+        <img src="photo-6.jpg">
+        <img src="photo-7.jpg">
+        <img src="photo-8.jpg">
+        <img src="photo-9.jpg">
+    </div>
+    <div id="imagePopup-section5" class="popup-section5 hidden">
+        <img id="popupImage-section5" src="" alt="Popup Image">
+    </div>
     <div class="parallax_section section4">
         <a href="https://m.entertain.naver.com/article/312/0000592286">
             <h2>INTERVIEW</h2>
         </a>
     </div>
-    <div class="slide-container">
-        <!-- PC 슬라이드 -->
-        <div class="slide pc">
-            <div class="slide-item">
-                <img src="photo-1.jpg" alt="photo 1">
-                <img src="photo-2.jpg" alt="photo 2">
-            </div>
-            <div class="slide-item">
-                <img src="photo-3.jpg" alt="photo 3">
-                <img src="photo-4.jpg" alt="photo 4">
-            </div>
-            <div class="slide-item">
-                <img src="photo-5.jpg" alt="photo 5">
-                <img src="photo-6.jpg" alt="photo 6">
-            </div>
-        </div>
-
-        <!-- 모바일 슬라이드 -->
-        <div class="slide mobile">
-            <div class="slide-item">
-                <img src="photo-1.jpg" alt="photo 1">
-            </div>
-            <div class="slide-item">
-                <img src="photo-2.jpg" alt="photo 2">
-            </div>
-            <div class="slide-item">
-                <img src="photo-3.jpg" alt="photo 3">
-            </div>
-            <div class="slide-item">
-                <img src="photo-4.jpg" alt="photo 4">
-            </div>
-            <div class="slide-item">
-                <img src="photo-5.jpg" alt="photo 5">
-            </div>
-            <div class="slide-item">
-                <img src="photo-6.jpg" alt="photo 6">
-            </div>
-        </div>
-
-        <!-- 네비게이션 버튼 (PC 용) -->
-        <button class="prev">이전</button>
-        <button class="next">다음</button>
+    <div class="section6">
+        <img src="press-1.jpg">
+        <img src="press-2.jpg">
     </div>
     <div class="parallax_section section3">
-        <a href="https://www.instagram.com/kimyaeeun/">
-            <h2>INSTAGRAM</h2>
-        </a>
+        <h2>CONTACT</h2>
+        <p style="color:#fff;">
+        <br><a href="https://www.instagram.com/kimyaeeun/">instagram. @kimyaeeun</a>
+        <br><a href="mailto:natoda_@naver.com">Send Email</a>
+        <br><a href="http://c-jes.com/portfolio_page/kim-yae-eun/">C-Jes</a>
+        </p>
+    </div>
+    <div class="selection7">
+        <p style="color:#fff; margin: 0 auto; text-align: center; font-size: 7px;">
+            © 2025 Yaeeun Kim <a href="https://www.instagram.com/24rim2/">Site by Seorim Lee</a>
+        </p>
     </div>
 
     <script>
@@ -791,68 +845,47 @@
             }
         });
 
-    </script>
-    <script>
-        let slideIndex = 0; // 현재 슬라이드 인덱스
-        let isAnimating = false; // 슬라이드 이동 중인지 상태 플래그
+        //section5 이미지효과
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.section5 img, .section6 img');
 
-        // 슬라이드 이동 함수
-        function moveSlide(offset, isMobile = false) {
-            if (isAnimating) return; // 애니메이션 중에는 추가 동작 금지
-            isAnimating = true;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.setProperty('--delay', `${index * 0.08}s`); // 각 이미지에 지연 시간 설정
+                        img.classList.add('visible');
+                        observer.unobserve(img); // 한 번 나타난 이미지는 더 이상 관찰하지 않음
+                    }
+                });
+            }, {
+                threshold: 0.3, // 이미지가 30% 보일 때 효과 실행
+            });
 
-            const slides = document.querySelector(isMobile ? '.mobile' : '.pc');
-            const totalSlides = document.querySelectorAll(`${isMobile ? '.mobile' : '.pc'} .slide-item`).length;
-            const slideWidth = isMobile ? 100 : 50; // 모바일: 100%, PC: 50%
-
-            // 슬라이드 인덱스 업데이트
-            slideIndex = (slideIndex + offset + totalSlides) % totalSlides;
-
-            // 슬라이드 이동
-            slides.style.transition = 'transform 0.5s ease'; // 부드러운 이동
-            slides.style.transform = `translateX(-${slideIndex * slideWidth}%)`;
-
-            // 애니메이션이 끝난 후 상태 초기화
-            setTimeout(() => {
-                isAnimating = false; // 애니메이션 종료
-            }, 500); // transition 시간과 동일
-        }
-
-        // 모바일 슬라이드 터치 스와이프
-        let startTouchX = 0; // 터치 시작 X 좌표
-        let isSwiping = false; // 스와이프 중인지 상태 플래그
-
-        document.querySelector('.mobile').addEventListener('touchstart', (e) => {
-            if (isAnimating) return; // 애니메이션 중이면 스와이프 금지
-            startTouchX = e.touches[0].clientX; // 터치 시작 위치 저장
-            isSwiping = true; // 스와이프 시작
+            images.forEach(img => observer.observe(img));
         });
+        
+        //section5 이미지 팝업
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.section5 img');
+            const popup = document.getElementById('imagePopup-section5');
+            const popupImage = document.getElementById('popupImage-section5');
 
-        document.querySelector('.mobile').addEventListener('touchmove', (e) => {
-            if (!isSwiping) return;
+            images.forEach(img => {
+                img.addEventListener('click', () => {
+                    popupImage.src = img.src; // 클릭한 이미지의 src를 팝업 이미지에 설정
+                    popup.classList.remove('hidden'); // 팝업 표시
+                });
+            });
 
-            const currentTouchX = e.touches[0].clientX;
-            const diffX = startTouchX - currentTouchX;
-
-            // 스와이프 방향 감지 및 이동
-            if (diffX > 50) {
-                isSwiping = false; // 스와이프 완료 후 중복 방지
-                moveSlide(1, true); // 오른쪽에서 왼쪽으로 스와이프 (다음 슬라이드)
-            } else if (diffX < -50) {
-                isSwiping = false; // 스와이프 완료 후 중복 방지
-                moveSlide(-1, true); // 왼쪽에서 오른쪽으로 스와이프 (이전 슬라이드)
-            }
+            popup.addEventListener('click', () => {
+                popup.classList.add('hidden'); // 팝업 숨기기
+                popupImage.src = ''; // 팝업 이미지 src 초기화
+            });
         });
-
-        document.querySelector('.mobile').addEventListener('touchend', () => {
-            isSwiping = false; // 스와이프 종료
-        });
-
-        // PC 버튼 이벤트
-        document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
-        document.querySelector('.next').addEventListener('click', () => moveSlide(1));
 
     </script>
+
 </body>
 
 </html>
